@@ -18,6 +18,8 @@
   --color-red-700: #b91c1c;
   --color-red-100: #fee2e2;
   --color-red-50: #fef2f2;
+  --color-blue-50: #eff6ff;
+  --color-blue-100: #dbeafe;
 }
 
 html {
@@ -26,7 +28,7 @@ html {
 
 body {
   font-family: var(--font-sans);
-  background: radial-gradient(circle at top right, rgba(239, 68, 68, 0.12), transparent 16%), radial-gradient(circle at bottom left, rgba(239, 68, 68, 0.08), transparent 24%), var(--color-slate-50);
+  background: radial-gradient(circle at top right, rgba(239, 68, 68, 0.12), transparent 16%), radial-gradient(circle at bottom left, rgba(239, 68, 68, 0.08), transparent 24%), var(--color-blue-50);
   color: var(--color-slate-950);
   min-height: 100vh;
   text-rendering: optimizeLegibility;
@@ -50,7 +52,7 @@ select {
 
 @layer base {
   body {
-    background-color: var(--color-slate-50);
+    background-color: var(--color-blue-50);
     color: var(--color-slate-950);
   }
   a {
