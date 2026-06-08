@@ -10,35 +10,35 @@ export default function Hero3D() {
   return (
     <section id="home" className="relative overflow-hidden bg-gradient-to-b from-sky-50 via-slate-100 to-slate-200">
       <div className="absolute inset-x-0 top-0 h-56 bg-gradient-to-b from-sky-100 to-transparent" />
-      <div className="relative mx-auto max-w-7xl px-4 pt-12 pb-24 sm:px-6 lg:px-8">
-        <div className="grid gap-10 lg:grid-cols-[1.15fr_0.85fr] items-center">
+      <div className="relative mx-auto max-w-7xl px-4 pt-8 pb-16 sm:pt-12 sm:pb-24 sm:px-6 lg:px-8">
+        <div className="grid gap-6 sm:gap-10 lg:grid-cols-[1.15fr_0.85fr] items-center">
           <motion.div initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }}>
-            <h1 className="mt-0 max-w-3xl text-4xl font-bold tracking-tight text-slate-950 sm:text-5xl lg:text-6xl">
+            <h1 className="mt-0 max-w-3xl text-3xl font-bold tracking-tight text-slate-950 sm:text-4xl md:text-5xl lg:text-6xl">
               Helping Businesses Gain Financial Clarity, Connectivity & Operational Traction
             </h1>
             <p className="mt-6 max-w-2xl text-lg leading-8 text-slate-600">
               We implement TallyPrime, provide secure cloud hosting, and help businesses improve systems, reporting, accountability, and operational performance across multiple locations.
             </p>
 
-            <div className="mt-10 flex flex-wrap gap-4">
-              <Link to="/contact" className="btn-primary">
+            <div className="mt-8 sm:mt-10 flex flex-col sm:flex-row flex-wrap gap-3 sm:gap-4">
+              <Link to="/contact" className="btn-primary w-full sm:w-auto text-center">
                 Book a Consultation
               </Link>
-              <Link to="/contact" className="inline-flex items-center gap-2 rounded-xl bg-blue-600 px-6 py-4 text-sm font-bold text-white shadow-xl shadow-blue-500/20 hover:bg-blue-700 transition-all">
+              <Link to="/contact" className="inline-flex items-center justify-center gap-2 rounded-xl bg-blue-600 px-6 py-3 sm:py-4 text-sm sm:text-base font-bold text-white shadow-xl shadow-blue-500/20 hover:bg-blue-700 transition-all w-full sm:w-auto">
                 Request a Demo
               </Link>
               <a
                 href={`https://wa.me/${data.contact.whatsapp}?text=Hi,%20I%20need%20to%20talk%20to%20an%20expert`}
                 target="_blank"
                 rel="noreferrer"
-                className="inline-flex items-center gap-2 rounded-xl bg-[#25D366] px-5 py-3 text-sm font-semibold text-white shadow-lg shadow-[#25D366]/30 hover:bg-[#1DA851] transition"
+                className="inline-flex items-center justify-center gap-2 rounded-xl bg-[#25D366] px-5 py-3 text-sm sm:text-base font-semibold text-white shadow-lg shadow-[#25D366]/30 hover:bg-[#1DA851] transition w-full sm:w-auto"
               >
                 <WhatsAppIcon className="h-5 w-5 text-white" />
                 Talk to an Expert
               </a>
             </div>
 
-            <div className="mt-12 grid gap-3 sm:grid-cols-2 lg:grid-cols-2">
+            <div className="mt-10 sm:mt-12 grid gap-3 grid-cols-1 sm:grid-cols-2">
               {[
                 { title: 'KRA compliant', description: 'Accurate tax-ready accounting.' },
                 { title: 'Inventory control', description: 'Real-time stock intelligence.' },
@@ -52,8 +52,8 @@ export default function Hero3D() {
           </motion.div>
 
           <motion.div initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.1 }}>
-            <div className="relative overflow-hidden rounded-[2rem] border border-slate-200 bg-white shadow-soft">
-              <div className="p-6 text-slate-950">
+            <div className="relative overflow-hidden rounded-2xl sm:rounded-[2rem] border border-slate-200 bg-white shadow-soft">
+              <div className="p-4 sm:p-6 text-slate-950">
                 <div className="flex items-center justify-between gap-4">
                   <div>
                     <p className="text-xs uppercase tracking-[0.35em] text-slate-500">Business benefits</p>
@@ -63,7 +63,7 @@ export default function Hero3D() {
                 </div>
               </div>
 
-              <div className="space-y-4 p-6">
+              <div className="space-y-4 p-4 sm:p-6">
                 {[
                   { title: 'Faster sales follow-up', description: 'Close more deals with automated customer tracking.' },
                   { title: 'GPS-verified field activity', description: 'Ensure field teams are productive and accountable.' },
@@ -76,8 +76,8 @@ export default function Hero3D() {
                 ))}
               </div>
 
-              <div className="border-t border-slate-200 bg-slate-50 p-6">
-                <div className="grid gap-4 sm:grid-cols-2">
+              <div className="border-t border-slate-200 bg-slate-50 p-4 sm:p-6">
+                <div className="grid gap-4 grid-cols-1 sm:grid-cols-2">
                   <div className="rounded-3xl border border-slate-200 bg-white p-5">
                     <p className="text-xs uppercase tracking-[0.3em] text-slate-500">Better cash flow</p>
                     <h3 className="mt-3 text-2xl font-semibold text-slate-950">Stronger control</h3>

@@ -105,7 +105,7 @@ export default function TallyLanding() {
             Certified Tally Prime partner
           </div>
 
-          <h1 className="mx-auto max-w-full text-3xl font-extrabold leading-tight tracking-tight text-white sm:text-4xl lg:text-5xl xl:text-5xl drop-shadow-lg whitespace-nowrap">
+          <h1 className="mx-auto max-w-full text-2xl font-extrabold leading-tight tracking-tight text-white sm:text-3xl md:text-4xl lg:text-5xl drop-shadow-lg">
             <span className="inline-flex items-center gap-1">
               Grow&nbsp;
               <motion.span
@@ -139,7 +139,7 @@ export default function TallyLanding() {
             TallyPrime is more than accounting. We help businesses connect sales, field teams, inventory, and finance into one efficient workflow—giving management real-time visibility and better control over operations.
           </p>
 
-          <div className="mx-auto mt-8 grid max-w-2xl gap-3 sm:grid-cols-2">
+          <div className="mx-auto mt-8 grid max-w-2xl gap-3 grid-cols-1 sm:grid-cols-2">
             {benefits.map((benefit) => (
               <div key={benefit} className="flex items-start gap-3 rounded-3xl border border-white/15 bg-white/10 px-4 py-3 text-left backdrop-blur-sm text-sm text-white/90 shadow-sm shadow-black/10">
                 <span className="mt-1 inline-flex h-8 w-8 items-center justify-center rounded-full bg-white/15 text-xs font-bold text-emerald-200">✓</span>
@@ -148,9 +148,9 @@ export default function TallyLanding() {
             ))}
           </div>
 
-          <div className="mt-8 flex justify-center gap-4">
-            <a href="#home" className="rounded-full bg-white/90 px-6 py-3 text-sm font-semibold text-slate-900 shadow-lg hover:opacity-95">Explore Tally Prime services</a>
-            <a href="/contact" className="rounded-full border border-white/30 px-6 py-3 text-sm font-semibold text-white/90 hover:bg-white/10">Book a demo</a>
+          <div className="mt-8 flex flex-col sm:flex-row justify-center gap-3 sm:gap-4 px-4">
+            <a href="/features" className="rounded-full bg-white/90 px-6 py-3 text-sm sm:text-base font-semibold text-slate-900 shadow-lg hover:opacity-95 text-center">Explore Services</a>
+            <a href="/contact" className="rounded-full border border-white/30 px-6 py-3 text-sm sm:text-base font-semibold text-white/90 hover:bg-white/10 text-center">Book a Demo</a>
           </div>
         </motion.div>
       </div>
