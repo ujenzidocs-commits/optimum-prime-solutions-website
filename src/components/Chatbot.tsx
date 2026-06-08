@@ -187,6 +187,7 @@ function FormatMessage({ text }: { text: string }) {
 
 export default function Chatbot() {
   const { data } = useSite();
+  const [showWA, setShowWA] = useState(false);
   const defaultQuickLinks = [
     'Request a demo',
     'Pricing & editions',
@@ -329,12 +330,14 @@ export default function Chatbot() {
                     </motion.div>
                     <span className="absolute -bottom-0.5 -right-0.5 h-2.5 w-2.5 rounded-full border-2 border-white bg-white/80" />
                   </div>
-                    {/* WhatsApp quick link */}
+                    {/* WhatsApp quick link (opens CTA modal) */}
                     <a
                       href={`https://wa.me/${data.contact.whatsapp}`}
-                      target="_blank"
-                      rel="noreferrer"
-                      className="inline-flex items-center justify-center h-8 w-8 rounded-full bg-white/10 hover:bg-white/20 ml-1"
+                      onClick={(e) => {
+                        e.preventDefault();
+                        setShowWA(true);
+                      }}
+                      className="inline-flex items-center justify-center h-8 w-8 rounded-full bg-white/10 hover:bg-white/20 ml-1 cursor-pointer"
                       title="Chat on WhatsApp"
                       aria-label="WhatsApp"
                     >
@@ -382,6 +385,86 @@ export default function Chatbot() {
 
             {!min && (
               <>
+                {/* WhatsApp CTA modal */}
+                <AnimatePresence>
+                  {showWA && (
+                    <motion.div
+                      initial={{ opacity: 0, scale: 0.98 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      exit={{ opacity: 0, scale: 0.98 }}
+                      className="absolute left-4 top-16 z-50 w-[320px] sm:w-80"
+                    >
+                      <div className="rounded-2xl overflow-hidden border bg-white shadow-lg ring-1 ring-slate-200">
+                        <div className="flex items-center justify-between px-4 py-3">
+                          <div className="flex items-center gap-3">
+                            <div className="h-9 w-9 rounded-full bg-[#25D366] flex items-center justify-center">
+                              <WhatsAppIcon className="h-5 w-5 text-white" />
+                            </div>
+                            <div>
+                              <p className="text-sm font-semibold">Message on WhatsApp</p>
+                              <p className="text-xs text-slate-500">Quick chat with our team</p>
+                            </div>
+                          </div>
+                          <button
+                            onClick={() => setShowWA(false)}
+                            className="text-slate-500 hover:text-slate-700 p-1 rounded"
+                            aria-label="Close WhatsApp CTA"
+                          >
+                            <X className="h-4 w-4" />
+                          </button>
+                        </div>
+                        <div className="px-4 pb-4">
+                          <p className="text-sm text-slate-600 mb-3">Open WhatsApp to start a direct chat with our support team.</p>
+                          <div className="flex flex-col gap-3">
+                            <div className="flex gap-2">
+                              <a
+                                href={`https://wa.me/${data.contact.whatsapp}?text=${encodeURIComponent('Hi, I would like to request a demo for Tally Prime.')}`}
+                                target="_blank"
+                                rel="noreferrer"
+                                className="inline-flex items-center gap-2 rounded-full bg-white/5 px-3 py-2 text-sm font-medium text-slate-900 border border-slate-100 hover:bg-white hover:scale-105 transition"
+                              >
+                                Request demo
+                              </a>
+                              <a
+                                href={`https://wa.me/${data.contact.whatsapp}?text=${encodeURIComponent('Hi, please share pricing and editions for Tally Prime.')}`}
+                                target="_blank"
+                                rel="noreferrer"
+                                className="inline-flex items-center gap-2 rounded-full bg-white/5 px-3 py-2 text-sm font-medium text-slate-900 border border-slate-100 hover:bg-white hover:scale-105 transition"
+                              >
+                                Pricing
+                              </a>
+                              <a
+                                href={`https://wa.me/${data.contact.whatsapp}?text=${encodeURIComponent('Hi, I need to talk to an expert about Tally Prime implementation.')}`}
+                                target="_blank"
+                                rel="noreferrer"
+                                className="inline-flex items-center gap-2 rounded-full bg-white/5 px-3 py-2 text-sm font-medium text-slate-900 border border-slate-100 hover:bg-white hover:scale-105 transition"
+                              >
+                                Talk to an expert
+                              </a>
+                            </div>
+                            <div className="flex gap-2">
+                              <a
+                                href={`https://wa.me/${data.contact.whatsapp}?text=${encodeURIComponent('Hi, I would like to request a demo for Tally Prime.')}`}
+                                target="_blank"
+                                rel="noreferrer"
+                                className="inline-flex items-center gap-2 rounded-full bg-[#25D366] px-4 py-2 text-sm font-semibold text-white shadow-sm hover:scale-105 transition"
+                              >
+                                <WhatsAppIcon className="h-4 w-4 text-white" />
+                                Open WhatsApp
+                              </a>
+                              <button
+                                onClick={() => setShowWA(false)}
+                                className="inline-flex items-center justify-center rounded-full border px-3 py-2 text-sm text-slate-700 hover:bg-slate-50 transition"
+                              >
+                                Close
+                              </button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
                 {/* Messages */}
                 <div className="flex-1 overflow-y-auto px-4 py-4 space-y-3 bg-slate-100 dark:bg-slate-950">
                   {msgs.map((m) => (
@@ -517,6 +600,15 @@ export default function Chatbot() {
                     placeholder="Type a message..."
                     className="flex-1 rounded-xl border border-slate-300 dark:border-slate-700 bg-slate-100 dark:bg-slate-900 px-3.5 py-2 text-sm outline-none focus:border-sky-400 focus:ring-2 focus:ring-sky-400/30 text-slate-950 dark:text-white placeholder-slate-500 dark:placeholder-slate-400 caret-sky-600"
                   />
+                  <button
+                    type="button"
+                    onClick={() => setShowWA(true)}
+                    title="Contact on WhatsApp"
+                    aria-label="WhatsApp"
+                    className="h-9 w-9 rounded-xl bg-[#25D366] text-white flex items-center justify-center hover:scale-105 transition"
+                  >
+                    <WhatsAppIcon className="h-4 w-4" />
+                  </button>
                   <motion.button
                     type="submit"
                     disabled={!input.trim()}

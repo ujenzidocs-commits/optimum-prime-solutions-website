@@ -21,17 +21,17 @@ export default function Hero3D() {
             </p>
 
             <div className="mt-8 sm:mt-10 flex flex-col sm:flex-row flex-wrap gap-3 sm:gap-4">
-              <Link to="/contact" className="btn-primary w-full sm:w-auto text-center">
+              <Link to="/contact" className="btn-primary w-full sm:w-auto text-center hover:scale-105 active:scale-95 transition-transform">
                 Book a Consultation
               </Link>
-              <Link to="/contact" className="inline-flex items-center justify-center gap-2 rounded-xl bg-blue-600 px-6 py-3 sm:py-4 text-sm sm:text-base font-bold text-white shadow-xl shadow-blue-500/20 hover:bg-blue-700 transition-all w-full sm:w-auto">
+              <Link to="/contact" className="inline-flex items-center justify-center gap-2 rounded-full bg-red-600 px-6 py-3 sm:py-4 text-sm sm:text-base font-semibold text-white shadow-sm shadow-red-900/10 hover:bg-red-700 hover:scale-105 active:scale-95 transition-all w-full sm:w-auto">
                 Request a Demo
               </Link>
               <a
                 href={`https://wa.me/${data.contact.whatsapp}?text=Hi,%20I%20need%20to%20talk%20to%20an%20expert`}
                 target="_blank"
                 rel="noreferrer"
-                className="inline-flex items-center justify-center gap-2 rounded-xl bg-[#25D366] px-5 py-3 text-sm sm:text-base font-semibold text-white shadow-lg shadow-[#25D366]/30 hover:bg-[#1DA851] transition w-full sm:w-auto"
+                className="inline-flex items-center justify-center gap-2 rounded-full bg-[#25D366] px-5 py-3 text-sm sm:text-base font-semibold text-white shadow-lg shadow-[#25D366]/30 hover:bg-[#1DA851] hover:scale-105 active:scale-95 transition-all w-full sm:w-auto"
               >
                 <WhatsAppIcon className="h-5 w-5 text-white" />
                 Talk to an Expert

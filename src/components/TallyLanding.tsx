@@ -1,9 +1,11 @@
 import { motion } from 'framer-motion';
 import { useEffect, useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 export default function TallyLanding() {
   const confettiRoot = useRef<HTMLDivElement | null>(null);
   const logoRef = useRef<HTMLDivElement | null>(null);
+  const navigate = useNavigate();
   const benefits = [
     'Faster sales follow-up and customer management',
     'GPS-verified field sales activities',
@@ -16,6 +18,11 @@ export default function TallyLanding() {
     // Simple DOM confetti: create colorful flakes and animate then remove
     const root = confettiRoot.current;
     if (!root) return;
+    // Disable confetti on small screens or when user prefers reduced motion
+    if (typeof window !== 'undefined') {
+      const prefersReduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (prefersReduced || window.innerWidth < 640) return;
+    }
 
     const colors = ['#F59E0B', '#06B6D4', '#0EA5E9', '#F97316', '#60A5FA', '#34D399'];
     const flakes: HTMLDivElement[] = [];
@@ -46,31 +53,32 @@ export default function TallyLanding() {
   useEffect(() => {
     const el = logoRef.current;
     if (!el) return;
+    const node = el as HTMLDivElement;
 
     function onMove(e: MouseEvent) {
-      const rect = el.getBoundingClientRect();
+      const rect = node.getBoundingClientRect();
       const x = e.clientX - rect.left - rect.width / 2;
       const y = e.clientY - rect.top - rect.height / 2;
       const rx = (-y / rect.height) * 6; // tilt intensity
       const ry = (x / rect.width) * 6;
-      el.style.transform = `perspective(800px) rotateX(${rx}deg) rotateY(${ry}deg) translateZ(6px)`;
+      node.style.transform = `perspective(800px) rotateX(${rx}deg) rotateY(${ry}deg) translateZ(6px)`;
     }
 
     function onLeave() {
-      el.style.transform = 'none';
+      node.style.transform = 'none';
     }
 
-    el.addEventListener('mousemove', onMove);
-    el.addEventListener('mouseleave', onLeave);
+    node.addEventListener('mousemove', onMove);
+    node.addEventListener('mouseleave', onLeave);
     return () => {
-      el.removeEventListener('mousemove', onMove);
-      el.removeEventListener('mouseleave', onLeave);
+      node.removeEventListener('mousemove', onMove);
+      node.removeEventListener('mouseleave', onLeave);
     };
   }, []);
 
   return (
-    <section className="relative h-screen w-full overflow-hidden bg-black">
-      <div className="absolute inset-0 z-10 bg-black/70" />
+    <section className="relative min-h-screen w-full overflow-hidden bg-black">
+      <div className="absolute inset-0 z-10 bg-black/70 pointer-events-none" />
 
       <div className="absolute inset-x-0 bottom-0 h-48 z-30 bg-gradient-to-t from-slate-100/90 via-slate-100/30 to-transparent" />
 
@@ -78,11 +86,11 @@ export default function TallyLanding() {
       {/* Subtle particle layer using SVG shapes and CSS animation */}
       <svg className="pointer-events-none absolute inset-0 -z-20 h-full w-full" preserveAspectRatio="none">
         <defs>
-          <linearGradient id="p" x1="0" x2="1">
-            <stop offset="0%" stopColor="#ffffff" stopOpacity="0.08" />
-            <stop offset="100%" stopColor="#ffffff" stopOpacity="0.02" />
-          </linearGradient>
-        </defs>
+            <linearGradient id="p" x1="0" x2="1">
+              <stop offset="0%" stopColor="#ffffff" stopOpacity="0.08" />
+              <stop offset="100%" stopColor="#ffffff" stopOpacity="0.02" />
+            </linearGradient>
+          </defs>
         <g className="animate-particles" fill="url(#p)">
           <circle cx="10%" cy="20%" r="2" />
           <circle cx="30%" cy="10%" r="1.5" />
@@ -149,8 +157,8 @@ export default function TallyLanding() {
           </div>
 
           <div className="mt-8 flex flex-col sm:flex-row justify-center gap-3 sm:gap-4 px-4">
-            <a href="/features" className="rounded-full bg-white/90 px-6 py-3 text-sm sm:text-base font-semibold text-slate-900 shadow-lg hover:opacity-95 text-center">Explore Services</a>
-            <a href="/contact" className="rounded-full border border-white/30 px-6 py-3 text-sm sm:text-base font-semibold text-white/90 hover:bg-white/10 text-center">Book a Demo</a>
+            <button type="button" onClick={() => navigate('/features')} className="rounded-full bg-white/90 px-6 py-3 text-sm sm:text-base font-semibold text-slate-900 shadow-lg hover:bg-white hover:shadow-2xl hover:scale-105 transition-all text-center inline-flex items-center justify-center cursor-pointer active:scale-95 w-full sm:w-auto">Explore Services</button>
+            <button type="button" onClick={() => navigate('/contact')} className="rounded-full border border-white/30 px-6 py-3 text-sm sm:text-base font-semibold text-white/90 hover:bg-white/30 hover:border-white/70 hover:scale-105 transition-all text-center inline-flex items-center justify-center cursor-pointer active:scale-95 w-full sm:w-auto">Book a Demo</button>
           </div>
         </motion.div>
       </div>
