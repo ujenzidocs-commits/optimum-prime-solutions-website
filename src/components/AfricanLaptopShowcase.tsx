@@ -172,8 +172,8 @@ export default function AfricanLaptopShowcase({ tag, title, description, feature
               <div className="absolute inset-0 rounded-[2rem] ring-1 ring-white/10" />
               <div className="relative flex h-full items-end p-6">
                 <div className="rounded-3xl bg-white/10 px-5 py-4 text-sm text-white/90 backdrop-blur-md ring-1 ring-white/15">
-                  <p className="text-xs uppercase tracking-[0.3em] text-slate-200">Live view</p>
-                  <p className="mt-2 font-semibold">{theme === 'products' ? 'Laptop workflow preview' : 'Modern laptop workspace'}</p>
+                  <p className="text-xs uppercase tracking-[0.3em] text-slate-200"></p>
+                  <p className="mt-2 font-semibold">{theme === 'products' ? 'Laptop workflow preview' : 'Financial clarity and operational growth'}</p>
                 </div>
               </div>
             </div>

@@ -6,7 +6,6 @@ import { OfflineBanner } from './components/OfflineBanner';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import Chatbot from './components/Chatbot';
-import StickyDownloadBar from './components/StickyDownloadBar';
 import AdminLogin from './admin/AdminLogin';
 import AdminLayout from './admin/AdminLayout';
 import HomePage from './pages/HomePage';
@@ -24,8 +23,7 @@ import { signInAnonymously } from 'firebase/auth';
 function SiteRoutes() {
   return (
     <div className="min-h-screen bg-slate-50 text-slate-950 flex flex-col">
-    <Navbar />
-    <StickyDownloadBar />
+      <Navbar />
       <main className="flex-grow">
         <Routes>
           <Route path="/" element={<HomePage />} />

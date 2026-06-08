@@ -1,4 +1,4 @@
-import { ArrowUp, Mail, MapPin, Phone } from 'lucide-react';
+import { ArrowRight, ArrowUp, Mail, MapPin, Phone } from 'lucide-react';
 import { FormEvent, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useSite } from '../context/SiteContext';
@@ -42,9 +42,9 @@ export default function Footer() {
               <img
                 src="/tally-solutions-new-logo.png"
                 alt="Tally Solutions logo"
-                className="w-full max-w-[320px] h-auto object-contain"
+                className="h-16 w-auto max-w-[180px] object-contain"
               />
-              <Logo className="h-20 w-auto mx-auto transform translate-x-6" />
+              <Logo className="h-14 w-auto mx-auto" />
             </div>
             <p className="max-w-md text-sm leading-relaxed text-slate-500">
               {data.company.tagline}. Your trusted Tally Prime partner in Kenya.
@@ -114,19 +114,34 @@ export default function Footer() {
                 Join
               </button>
             </form>
-            <div className="mt-6 flex flex-col items-center gap-4">
-              <img
-                src="/tally-solutions-new-logo.png"
-                alt="Tally Solutions logo"
-                className="mx-auto h-auto max-w-[320px] w-auto object-contain"
-                loading="lazy"
-              />
-              <Logo className="h-20 w-auto mx-auto transform translate-x-6" />
-            </div>
           </div>
         </div>
 
-        <div className="flex flex-col gap-4 border-t border-slate-200 pt-6 text-sm text-slate-500 sm:flex-row sm:items-center sm:justify-between">
+        <div className="rounded-4xl bg-gradient-to-r from-sky-800 via-sky-700 to-cyan-700 p-8 text-white shadow-2xl shadow-slate-900/10">
+          <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+            <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
+              <img
+                src="/tally-solutions-new-logo.png"
+                alt="Tally Solutions logo"
+                className="h-16 w-auto rounded-2xl bg-white/10 p-2 shadow-lg shadow-black/10"
+              />
+              <span className="max-w-xl text-sm font-semibold leading-6 text-white">
+                Try TallyPrime free — Education Mode, no license needed.
+              </span>
+            </div>
+            <a
+              href="https://tallysolutions.com/ssa/download/"
+              target="_blank"
+              rel="noreferrer"
+              className="inline-flex items-center justify-center rounded-full bg-white px-6 py-3 text-sm font-semibold text-slate-900 shadow-lg shadow-slate-900/10 transition hover:bg-slate-100"
+            >
+              Download Now
+              <ArrowRight className="ml-2 h-4 w-4" />
+            </a>
+          </div>
+        </div>
+
+      <div className="flex flex-col gap-4 border-t border-slate-200 pt-6 text-sm text-slate-500 sm:flex-row sm:items-center sm:justify-between">
           <p>© {new Date().getFullYear()} {data.company.name}. All rights reserved.</p>
           <button
             onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}

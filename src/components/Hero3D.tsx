@@ -56,27 +56,22 @@ export default function Hero3D() {
               <div className="p-6 text-slate-950">
                 <div className="flex items-center justify-between gap-4">
                   <div>
-                    <p className="text-xs uppercase tracking-[0.35em] text-slate-500">Business overview</p>
-                    <h2 className="mt-3 text-3xl font-semibold">Performance by metric</h2>
+                    <p className="text-xs uppercase tracking-[0.35em] text-slate-500">Business benefits</p>
+                    <h2 className="mt-3 text-3xl font-semibold">Key benefits</h2>
                   </div>
-                  <div className="rounded-3xl bg-slate-100 px-4 py-2 text-xs text-slate-700">Live</div>
+                  <div className="rounded-3xl bg-slate-100 px-4 py-2 text-xs text-slate-700">Top Picks</div>
                 </div>
               </div>
 
-              <div className="space-y-6 p-6">
+              <div className="space-y-4 p-6">
                 {[
-                  { label: 'Clients', value: '85%', accent: 'bg-red-600' },
-                  { label: 'Compliance', value: '98%', accent: 'bg-red-700' },
-                  { label: 'Uptime', value: '99.9%', accent: 'bg-red-500' },
+                  { title: 'Faster sales follow-up', description: 'Close more deals with automated customer tracking.' },
+                  { title: 'GPS-verified field activity', description: 'Ensure field teams are productive and accountable.' },
+                  { title: 'Accurate inventory reporting', description: 'Keep stock levels synced with finance in real time.' },
                 ].map((item) => (
-                  <div key={item.label} className="space-y-2">
-                    <div className="flex items-center justify-between text-sm text-slate-700">
-                      <span>{item.label}</span>
-                      <span className="font-semibold text-slate-950">{item.value}</span>
-                    </div>
-                    <div className="h-3 rounded-full bg-slate-200">
-                      <div className={`h-full rounded-full ${item.accent}`} style={{ width: item.value }} />
-                    </div>
+                  <div key={item.title} className="rounded-3xl border border-slate-200 bg-slate-50 p-5">
+                    <p className="text-sm font-semibold text-slate-700">{item.title}</p>
+                    <p className="mt-2 text-sm leading-6 text-slate-600">{item.description}</p>
                   </div>
                 ))}
               </div>
@@ -84,12 +79,12 @@ export default function Hero3D() {
               <div className="border-t border-slate-200 bg-slate-50 p-6">
                 <div className="grid gap-4 sm:grid-cols-2">
                   <div className="rounded-3xl border border-slate-200 bg-white p-5">
-                    <p className="text-xs uppercase tracking-[0.3em] text-slate-500">Active users</p>
-                    <h3 className="mt-3 text-2xl font-semibold text-slate-950">500+</h3>
+                    <p className="text-xs uppercase tracking-[0.3em] text-slate-500">Better cash flow</p>
+                    <h3 className="mt-3 text-2xl font-semibold text-slate-950">Stronger control</h3>
                   </div>
                   <div className="rounded-3xl border border-slate-200 bg-white p-5">
-                    <p className="text-xs uppercase tracking-[0.3em] text-slate-500">Response time</p>
-                    <h3 className="mt-3 text-2xl font-semibold text-slate-950">1 hr</h3>
+                    <p className="text-xs uppercase tracking-[0.3em] text-slate-500">Scalable systems</p>
+                    <h3 className="mt-3 text-2xl font-semibold text-slate-950">Growth ready</h3>
                   </div>
                 </div>
               </div>

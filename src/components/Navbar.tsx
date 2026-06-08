@@ -38,39 +38,12 @@ export default function Navbar() {
             <Logo className="h-10 w-auto text-slate-950" variant="full" />
           </Link>
 
-          <div className="hidden lg:flex items-center gap-2">
-            {links.map((link) => {
-              const isActive = location.pathname === link.href;
-              return (
-                <Link
-                  key={link.href}
-                  to={link.href}
-                  className={`px-4 py-2 text-sm font-medium transition ${
-                    isActive ? 'text-slate-950' : 'text-slate-600 hover:text-slate-950'
-                  }`}
-                >
-                  {link.label}
-                </Link>
-              );
-            })}
-          </div>
-
-          <div className="hidden lg:flex items-center gap-3">
-            <Link
-              to="/contact"
-              className="inline-flex items-center gap-2 rounded-full bg-slate-900 px-5 py-3 text-sm font-semibold text-white transition hover:bg-slate-800"
-            >
-              <Phone className="h-4 w-4" />
-              Request Demo
-            </Link>
-          </div>
-
           <button
             onClick={() => setOpen((prev) => !prev)}
-            className="lg:hidden p-2 text-slate-900"
-            aria-label="Toggle menu"
+            className="p-2 text-slate-900 transition hover:text-slate-700"
+            aria-label={open ? 'Close quick links' : 'Open quick links'}
           >
-            {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+            {open ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
           </button>
         </div>
       </div>
@@ -81,31 +54,36 @@ export default function Navbar() {
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
-            className="lg:hidden border-t border-slate-200 bg-gradient-to-b from-slate-50/95 via-slate-50/80 to-slate-50/70"
+            className="border-t border-slate-200 bg-gradient-to-b from-slate-50/95 via-slate-50/80 to-slate-50/70"
           >
-            <div className="px-4 py-4 space-y-2">
-              {links.map((link) => {
-                const isActive = location.pathname === link.href;
-                return (
-                  <Link
-                    key={link.href}
-                    to={link.href}
-                    onClick={() => setOpen(false)}
-                    className={`block rounded-2xl px-4 py-3 text-sm font-medium transition ${
-                      isActive ? 'bg-slate-100 text-slate-950' : 'text-slate-700 hover:bg-slate-50'
-                    }`}
-                  >
-                    {link.label}
-                  </Link>
-                );
-              })}
-              <Link
-                to="/contact"
-                onClick={() => setOpen(false)}
-                className="block rounded-full bg-red-600 px-4 py-3 text-center text-sm font-semibold text-white transition hover:bg-red-700"
-              >
-                Request Demo
-              </Link>
+            <div className="px-4 py-4">
+              <div className="mb-3 flex items-center justify-between">
+                <p className="text-sm font-semibold uppercase tracking-[0.24em] text-slate-600">Quick Links</p>
+                <button
+                  onClick={() => setOpen(false)}
+                  className="rounded-full p-2 text-slate-700 transition hover:bg-slate-100"
+                  aria-label="Close quick links"
+                >
+                  <X className="h-5 w-5" />
+                </button>
+              </div>
+              <div className="max-h-[40vh] overflow-y-auto rounded-3xl border border-slate-200 bg-white/90 p-3 shadow-sm">
+                {links.map((link) => {
+                  const isActive = location.pathname === link.href;
+                  return (
+                    <Link
+                      key={link.href}
+                      to={link.href}
+                      onClick={() => setOpen(false)}
+                      className={`block rounded-2xl px-4 py-3 text-sm font-medium transition ${
+                        isActive ? 'bg-slate-100 text-slate-950' : 'text-slate-700 hover:bg-slate-50'
+                      }`}
+                    >
+                      {link.label}
+                    </Link>
+                  );
+                })}
+              </div>
             </div>
           </motion.div>
         )}
