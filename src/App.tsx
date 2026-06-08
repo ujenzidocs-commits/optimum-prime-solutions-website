@@ -24,7 +24,7 @@ function SiteRoutes() {
   return (
     <div className="min-h-screen bg-slate-50 text-slate-950 flex flex-col">
       <Navbar />
-      <main className="flex-grow">
+      <main className="flex-grow pt-[72px]">
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/about" element={<AboutPage />} />
