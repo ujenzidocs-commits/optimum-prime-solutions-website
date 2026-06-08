@@ -27,14 +27,14 @@ function getBotResponse(q: string, d: SiteData): Msg {
   const responses: Array<{ pattern: RegExp; message: string; action?: Msg['action']; badge?: Msg['badge']; }> = [
     {
       pattern: /^(hi|hello|hey|jambo|habari|sasa|hallo)/,
-      message: `Hello! 👋 Welcome to ${d.company.name}. I can help with:\n\n✦ KRA & eTIMS compliance\n✦ Payroll & PAYE setup\n✦ Banking integrations\n✦ Inventory management\n✦ Collections & receivables\n✦ Audit readiness\n✦ System migration\n\nWhat can I help you with?`,
+      message: `Hello! 👋 Welcome to ${d.company.name}. Great to meet you!\n\n**I can help with:**\n✦ KRA & eTIMS compliance\n✦ Payroll & PAYE setup\n✦ Banking integrations\n✦ Inventory management\n✦ Collections & receivables\n✦ Audit readiness\n✦ System migration\n\n**What's your biggest challenge right now?** 🤔\n\nJust type or pick from the quick links below!`,
     },
     {
-      pattern: /demo|trial|test|try/,
+      message: `💰 **Payroll Management**\n\nAutomate payroll processing:\n✓ Auto salary calculation\n✓ PAYE withholding\n✓ NHIF deductions\n✓ NSSF contributions\n✓ Housing Levy (3%)\n✓ Leave tracking\n✓ Loan deductions\n✓ Advance settlements\n\n📊 **Reports:**\n• Individual payslips\n• Bank transfer lists\n• PAYE schedules\n• NHIF/NSSF remittance\n\n💡 **Reality check:** Manual payroll costs 5-10 hours monthly + errors. We automate it in minutes!\n\n**How many employees do you have?** 👥`,
       message: `🎯 Perfect! Let me schedule a demo for you.\n\nClick "Open Demo Form" or contact directly:\n📞 ${d.contact.phones[0]}\n📧 ${d.contact.emails[0]}\n💬 WhatsApp: wa.me/${d.contact.whatsapp}`,
       action: 'demo',
     },
-    {
+      message: `📦 **Inventory Management**\n\nReal-time stock control:\n✓ Multi-location warehousing\n✓ Batch & serial tracking\n✓ Expiry date management\n✓ Barcode scanning\n✓ Auto reorder alerts\n✓ Stock transfers\n✓ Consignment tracking\n\n🎯 **Features:**\n• Safety stock calculations\n• FIFO/LIFO valuation\n• Stock loss reporting\n• Inventory cycles\n• Cost analysis\n\n⚠️ **Problem we solve:** Stock-outs lose sales, overstock ties up cash. We balance it perfectly!\n\n**Are you tracking inventory across multiple locations?** 📍`,
       pattern: /price|cost|how much|silver|gold|edition|investment|budget/,
       message: `💰 **Tally Prime Pricing:**\n\n${d.products.map((p) => `• **${p.name} ${p.edition}**: ${p.price} (${p.period})\n  ${p.features[0]}`).join('\n\n')}\n\n✓ Volume discounts available\n✓ Custom TDL from KES 25,000\n✓ Training included\n\nLet's find the right fit!`,
     },
@@ -44,7 +44,7 @@ function getBotResponse(q: string, d: SiteData): Msg {
     },
     {
       pattern: /kra|etims|e-filing|tax|vat|compliance|excise|cdf|pin|filing/,
-      message: `📋 **KRA & eTIMS Compliance**\n\nWe configure 100% KRA compliance:\n✓ VAT computation & e-filing\n✓ PAYE auto-calculation\n✓ Income tax reporting\n✓ eTIMS integration\n✓ iTax e-Filing\n✓ Excise duty tracking\n✓ Certificate of Tax Compliance\n✓ Deadline alerts\n\nNever miss a deadline! Ready to set up?`,
+      message: `📋 **KRA & eTIMS Compliance**\n\nWe configure 100% KRA compliance:\n✓ VAT computation & e-filing\n✓ PAYE auto-calculation\n✓ Income tax reporting\n✓ eTIMS integration\n✓ iTax e-Filing\n✓ Excise duty tracking\n✓ Certificate of Tax Compliance\n✓ Deadline alerts\n\n🎯 **Here's the thing:** Most businesses lose money to missed deadlines & errors. We automate it all!\n\n**Are you currently using eTIMS, or looking to set it up?** 💭`,
       badge: 'kra',
     },
     {
@@ -57,7 +57,7 @@ function getBotResponse(q: string, d: SiteData): Msg {
     },
     {
       pattern: /collections|receivable|invoice|credit|customer|debtors|aging|recovery|dso|cash flow/,
-      message: `📲 **Collections & Receivables**\n\nMaximize cash collection:\n✓ Credit limit management\n✓ Invoice aging reports\n✓ Dunning automation\n✓ Payment reminders\n✓ Customer statements\n✓ Collection tracking\n✓ Bad debt provisioning\n\n📈 **Improve Cash Flow:**\n• Automated follow-up\n• Credit scoring\n• Early payment discounts\n• Late payment penalties\n\nReduce DSO by 30-40%!`,
+      message: `📲 **Collections & Receivables**\n\nMaximize cash collection:\n✓ Credit limit management\n✓ Invoice aging reports\n✓ Dunning automation\n✓ Payment reminders\n✓ Customer statements\n✓ Collection tracking\n✓ Bad debt provisioning\n\n📈 **Improve Cash Flow:**\n• Automated follow-up\n• Credit scoring\n• Early payment discounts\n• Late payment penalties\n\n🎯 **Impact:** Most businesses see 30-40% faster payments after setup.\n\n**How many days does it take to collect from customers?** ⏳`,
     },
     {
       pattern: /inventor|stock|warehouse|product|item|sku|batch|expiry|reorder|location|distribution/,
@@ -143,7 +143,7 @@ function getBotResponse(q: string, d: SiteData): Msg {
   return {
     id: Date.now().toString(),
     role: 'bot',
-    text: `Great question! 🤔 I didn't catch all the details, but our team can help:\n\n📞 ${d.contact.phones[0]}\n📧 ${d.contact.emails[0]}\n💬 wa.me/${d.contact.whatsapp}\n\nOr try asking about:\n✓ KRA compliance\n✓ Payroll setup\n✓ Banking integrations\n✓ Collections management\n✓ Inventory control\n✓ System migration`,
+    text: `Great question! 🤔 I'm still learning, but I've got you covered!\n\n📞 **Quick contact:**\n${d.contact.phones[0]}\n\n💬 **Or WhatsApp me** – I can escalate to our team instantly:\n📱 wa.me/${d.contact.whatsapp}\n\n**In the meantime, try asking about:**\n✓ KRA compliance\n✓ Payroll setup  \n✓ Banking integrations\n✓ Collections management\n✓ Inventory control\n✓ System migration\n✓ Pricing & editions\n\n**Need a demo?** Just say "demo" 🎯`,
     time,
   };
 }
@@ -207,7 +207,7 @@ export default function Chatbot() {
     {
       id: '0',
       role: 'bot',
-      text: `👋 Hello! I'm the Optimum Prime Assistant. I can help you with services, pricing, compliance, remote access, demos and training. Choose a quick link below or type your question.`,
+      text: `👋 Hi there! I'm **Jane**, your Optimum Prime assistant. I'm here to help!\n\n🎯 **Quick question:** Are you looking to:\n\n✨ Streamline your **accounting & finance**?\n💼 Set up **KRA compliance** for your business?\n📊 Improve **reporting & dashboards**?\n🚀 **Migrate** from another system?\n\nOr feel free to ask me anything!`,
       time: getTime(),
     },
   ]);
