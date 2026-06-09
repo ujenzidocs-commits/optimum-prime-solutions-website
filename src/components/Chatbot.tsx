@@ -1,6 +1,7 @@
 import { useState, useRef, useEffect, useCallback } from 'react';
 import { X, Send, Bot, User, Minimize2, Sparkles, RotateCcw } from 'lucide-react';
 import WhatsAppIcon from './WhatsAppIcon';
+import WhatsAppButton from './WhatsAppButton';
 import { useSite } from '../context/SiteContext';
 import { motion, AnimatePresence } from 'framer-motion';
 import DemoRequestModal from './DemoRequestModal';
@@ -30,11 +31,14 @@ function getBotResponse(q: string, d: SiteData): Msg {
       message: `Hello! 👋 Welcome to ${d.company.name}. Great to meet you!\n\n**I can help with:**\n✦ KRA & eTIMS compliance\n✦ Payroll & PAYE setup\n✦ Banking integrations\n✦ Inventory management\n✦ Collections & receivables\n✦ Audit readiness\n✦ System migration\n\n**What's your biggest challenge right now?** 🤔\n\nJust type or pick from the quick links below!`,
     },
     {
+      pattern: /payroll|paye|salary|nhif|nssf|housing|employee/,
       message: `💰 **Payroll Management**\n\nAutomate payroll processing:\n✓ Auto salary calculation\n✓ PAYE withholding\n✓ NHIF deductions\n✓ NSSF contributions\n✓ Housing Levy (3%)\n✓ Leave tracking\n✓ Loan deductions\n✓ Advance settlements\n\n📊 **Reports:**\n• Individual payslips\n• Bank transfer lists\n• PAYE schedules\n• NHIF/NSSF remittance\n\n💡 **Reality check:** Manual payroll costs 5-10 hours monthly + errors. We automate it in minutes!\n\n**How many employees do you have?** 👥`,
-      message: `🎯 Perfect! Let me schedule a demo for you.\n\nClick "Open Demo Form" or contact directly:\n📞 ${d.contact.phones[0]}\n📧 ${d.contact.emails[0]}\n💬 WhatsApp: wa.me/${d.contact.whatsapp}`,
-      action: 'demo',
     },
+    {
+      pattern: /inventory|stock|warehouse|product|sku|barcode/,
       message: `📦 **Inventory Management**\n\nReal-time stock control:\n✓ Multi-location warehousing\n✓ Batch & serial tracking\n✓ Expiry date management\n✓ Barcode scanning\n✓ Auto reorder alerts\n✓ Stock transfers\n✓ Consignment tracking\n\n🎯 **Features:**\n• Safety stock calculations\n• FIFO/LIFO valuation\n• Stock loss reporting\n• Inventory cycles\n• Cost analysis\n\n⚠️ **Problem we solve:** Stock-outs lose sales, overstock ties up cash. We balance it perfectly!\n\n**Are you tracking inventory across multiple locations?** 📍`,
+    },
+    {
       pattern: /price|cost|how much|silver|gold|edition|investment|budget/,
       message: `💰 **Tally Prime Pricing:**\n\n${d.products.map((p) => `• **${p.name} ${p.edition}**: ${p.price} (${p.period})\n  ${p.features[0]}`).join('\n\n')}\n\n✓ Volume discounts available\n✓ Custom TDL from KES 25,000\n✓ Training included\n\nLet's find the right fit!`,
     },
@@ -202,12 +206,13 @@ export default function Chatbot() {
   const [min, setMin] = useState(false);
   const [input, setInput] = useState('');
   const [typing, setTyping] = useState(false);
+  const [showTypingIndicator, setShowTypingIndicator] = useState(false);
   const [demoOpen, setDemoOpen] = useState(false);
   const [msgs, setMsgs] = useState<Msg[]>([
     {
       id: '0',
       role: 'bot',
-      text: `👋 Hi there! I'm **Jane**, your Optimum Prime assistant. I'm here to help!\n\n🎯 **Quick question:** Are you looking to:\n\n✨ Streamline your **accounting & finance**?\n💼 Set up **KRA compliance** for your business?\n📊 Improve **reporting & dashboards**?\n🚀 **Migrate** from another system?\n\nOr feel free to ask me anything!`,
+      text: `👋 Hello there! I'm **Aurora**, your AI assistant from Optimum Prime Solutions. I'm designed to help you navigate our services and find the best solutions for your business.\n\nTo get started, tell me a bit about what you're looking for. For example, you could ask about:\n\n✨ **KRA & eTIMS compliance**\n💼 **Payroll management**\n📊 **Inventory control**\n🚀 **System migration**\n\nOr, if you prefer, I can help you **book a demo** or **connect with a human expert**! What's on your mind today? 😊`,
       time: getTime(),
     },
   ]);
@@ -240,34 +245,45 @@ export default function Chatbot() {
     setInput('');
 
     if (isGreeting) {
-      const botMsg = getBotResponse(trimmedText, data);
-      if (botMsg.action === 'demo') setDemoOpen(true);
-      setMsgs((p) => [...p, botMsg]);
-      return;
+        const botMsg = getBotResponse(trimmedText, data);
+        if (botMsg.action === 'demo') setDemoOpen(true);
+        setTimeout(() => {
+          setMsgs((p) => [...p, botMsg]);
+          setShowTypingIndicator(false);
+        }, 1500);
+        return;
     }
 
     setTyping(true);
+    setShowTypingIndicator(true);
 
     (async () => {
       try {
         const reply = await getChatGPTReply(trimmedText, data);
-        if (!reply?.trim()) throw new Error('EMPTY_REPLY');
+        if (!reply?.trim()) throw new Error("EMPTY_REPLY");
 
         const botMsg: Msg = {
           id: Date.now().toString(),
-          role: 'bot',
+          role: "bot",
           text: reply,
           time: getTime(),
           badge: replyBadge,
         };
 
-        setMsgs((p) => [...p, botMsg]);
+        setTimeout(() => {
+          setMsgs((p) => [...p, botMsg]);
+          setShowTypingIndicator(false);
+        }, 1500);
       } catch (err) {
         const botMsg = getBotResponse(trimmedText, data);
-        if (botMsg.action === 'demo') setDemoOpen(true);
-        setMsgs((p) => [...p, { ...botMsg, badge: botMsg.badge || replyBadge }]);
+        if (botMsg.action === "demo") setDemoOpen(true);
+        setTimeout(() => {
+          setMsgs((p) => [...p, { ...botMsg, badge: botMsg.badge || replyBadge }]);
+          setShowTypingIndicator(false);
+        }, 1500);
       } finally {
         setTyping(false);
+        setShowTypingIndicator(false);
       }
     })();
   };
@@ -330,19 +346,9 @@ export default function Chatbot() {
                     </motion.div>
                     <span className="absolute -bottom-0.5 -right-0.5 h-2.5 w-2.5 rounded-full border-2 border-white bg-white/80" />
                   </div>
+                  <WhatsAppButton message="I need help with..." />
                     {/* WhatsApp quick link (opens CTA modal) */}
-                    <a
-                      href={`https://wa.me/${data.contact.whatsapp}`}
-                      onClick={(e) => {
-                        e.preventDefault();
-                        setShowWA(true);
-                      }}
-                      className="inline-flex items-center justify-center h-8 w-8 rounded-full bg-white/10 hover:bg-white/20 ml-1 cursor-pointer"
-                      title="Chat on WhatsApp"
-                      aria-label="WhatsApp"
-                    >
-                      <WhatsAppIcon className="h-5 w-5 text-green-400" />
-                    </a>
+
                 {!min && (
                   <div>
                     <p className="text-sm font-semibold text-white">Optimum Assistant</p>
@@ -539,7 +545,7 @@ export default function Chatbot() {
                       </div>
                     </motion.div>
                   ))}
-                  {typing && (
+                  {showTypingIndicator && (
                     <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="flex gap-2">
                       <div className="h-7 w-7 rounded-full bg-slate-900 flex items-center justify-center">
                         <Bot className="h-3.5 w-3.5 text-sky-300" />
