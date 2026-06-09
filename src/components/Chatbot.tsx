@@ -32,23 +32,23 @@ function getBotResponse(q: string, d: SiteData): Msg {
     },
     {
       pattern: /payroll|paye|salary|nhif|nssf|housing|employee/,
-      message: `💰 **Payroll Management**\n\nAutomate payroll processing:\n✓ Auto salary calculation\n✓ PAYE withholding\n✓ NHIF deductions\n✓ NSSF contributions\n✓ Housing Levy (3%)\n✓ Leave tracking\n✓ Loan deductions\n✓ Advance settlements\n\n📊 **Reports:**\n• Individual payslips\n• Bank transfer lists\n• PAYE schedules\n• NHIF/NSSF remittance\n\n💡 **Reality check:** Manual payroll costs 5-10 hours monthly + errors. We automate it in minutes!\n\n**How many employees do you have?** 👥`,
+      message: `💰 **Payroll Management**\n\nAutomate payroll processing:\n✓ Auto salary calculation\n✓ PAYE withholding\n✓ NHIF deductions\n✓ NSSF contributions\n✓ Housing Levy (3%)\n✓ Leave tracking\n✓ Loan deductions\n✓ Advance settlements\n\n📊 **Reports:**\n• Individual payslips\n• Bank transfer lists\n• PAYE schedules\n• NHIF/NSSF remittance\n\n💡 **Reality check:** Manual payroll costs 5-10 hours monthly + errors. We automate it in minutes!\n\n**How many employees do you currently manage payroll for?** 👥`,
     },
     {
       pattern: /inventory|stock|warehouse|product|sku|barcode/,
-      message: `📦 **Inventory Management**\n\nReal-time stock control:\n✓ Multi-location warehousing\n✓ Batch & serial tracking\n✓ Expiry date management\n✓ Barcode scanning\n✓ Auto reorder alerts\n✓ Stock transfers\n✓ Consignment tracking\n\n🎯 **Features:**\n• Safety stock calculations\n• FIFO/LIFO valuation\n• Stock loss reporting\n• Inventory cycles\n• Cost analysis\n\n⚠️ **Problem we solve:** Stock-outs lose sales, overstock ties up cash. We balance it perfectly!\n\n**Are you tracking inventory across multiple locations?** 📍`,
+      message: `📦 **Inventory Management**\n\nReal-time stock control:\n✓ Multi-location warehousing\n✓ Batch & serial tracking\n✓ Expiry date management\n✓ Barcode scanning\n✓ Auto reorder alerts\n✓ Stock transfers\n✓ Consignment tracking\n\n🎯 **Features:**\n• Safety stock calculations\n• FIFO/LIFO valuation\n• Stock loss reporting\n• Inventory cycles\n• Cost analysis\n\n⚠️ **Problem we solve:** Stock-outs lose sales, overstock ties up cash. We balance it perfectly!\n\n**Are you currently tracking inventory across multiple locations, or just one main warehouse?** 📍`,
     },
     {
       pattern: /price|cost|how much|silver|gold|edition|investment|budget/,
-      message: `💰 **Tally Prime Pricing:**\n\n${d.products.map((p) => `• **${p.name} ${p.edition}**: ${p.price} (${p.period})\n  ${p.features[0]}`).join('\n\n')}\n\n✓ Volume discounts available\n✓ Custom TDL from KES 25,000\n✓ Training included\n\nLet's find the right fit!`,
+      message: `💰 **Tally Prime Pricing:**\n\n${d.products.map((p) => `• **${p.name} ${p.edition}**: ${p.price} (${p.period})\n  ${p.features[0]}`).join('\n\n')}\n\n✓ Volume discounts available\n✓ Custom TDL from KES 25,000\n✓ Training included\n\n**To help me recommend the best edition for you, how many users will need access to the system?**`,
     },
     {
       pattern: /service|what.*offer|provide|do you/,
-      message: `🚀 **Our Services:**\n\n${d.services.slice(0, 8).map((s, i) => `${i+1}. **${s.title}**\n   ${s.desc}`).join('\n\n')}\n\nWhich interests you most?`,
+      message: `🚀 **Our Services:**\n\n${d.services.slice(0, 8).map((s, i) => `${i+1}. **${s.title}**\n   ${s.desc}`).join('\n\n')}\n\n**Which of these services aligns most closely with your current business goals?**`,
     },
     {
       pattern: /kra|etims|e-filing|tax|vat|compliance|excise|cdf|pin|filing/,
-      message: `📋 **KRA & eTIMS Compliance**\n\nWe configure 100% KRA compliance:\n✓ VAT computation & e-filing\n✓ PAYE auto-calculation\n✓ Income tax reporting\n✓ eTIMS integration\n✓ iTax e-Filing\n✓ Excise duty tracking\n✓ Certificate of Tax Compliance\n✓ Deadline alerts\n\n🎯 **Here's the thing:** Most businesses lose money to missed deadlines & errors. We automate it all!\n\n**Are you currently using eTIMS, or looking to set it up?** 💭`,
+      message: `📋 **KRA & eTIMS Compliance**\n\nWe configure 100% KRA compliance:\n✓ VAT computation & e-filing\n✓ PAYE auto-calculation\n✓ Income tax reporting\n✓ eTIMS integration\n✓ iTax e-Filing\n✓ Excise duty tracking\n✓ Certificate of Tax Compliance\n✓ Deadline alerts\n\n🎯 **Here's the thing:** Most businesses lose money to missed deadlines & errors. We automate it all!\n\n**Are you currently using eTIMS, or are you looking for help setting it up for the first time?** 💭`,
       badge: 'kra',
     },
     {
@@ -109,15 +109,15 @@ function getBotResponse(q: string, d: SiteData): Msg {
     },
     {
       pattern: /contact|reach|phone|call|email|location|address|office|visit|meeting|where/,
-      message: `📞 **Contact & Office Information**\n\n${d.contact.phones.map((p) => `📱 ${p}`).join('\n')}\n${d.contact.emails.map((e) => `📧 ${e}`).join('\n')}\n📍 ${d.contact.location}\n\n🕐 **Working Hours:**\n${d.contact.workingHours.map((h) => `• ${h}`).join('\n')}\n\nSchedule a meeting or get a quote!`,
+      message: `📞 **Contact & Office Information**\n\n${d.contact.phones.map((p) => `📱 ${p}`).join('\n')}\n${d.contact.emails.map((e) => `📧 ${e}`).join('\n')}\n📍 ${d.contact.location}\n\n🕐 **Working Hours:**\n${d.contact.workingHours.map((h) => `• ${h}`).join('\n')}\n\nSchedule a meeting or get a quote!\n\n**Would you prefer a call, email, or an in-person meeting to discuss your needs further?** 🗓️`,
     },
     {
       pattern: /about|company|who|mission|vision|history|team|background|credential|expert|partner/,
-      message: `🏢 **About Optimum Prime Solutions**\n\n${d.company.about[0]}\n\n📈 **By the Numbers:**\n${d.company.stats.map((s) => `• ${s.label}: ${s.value}`).join('\n')}\n\n✓ Certified Tally Gold Partner\n✓ KRA Compliance Experts\n✓ Trusted by 500+ businesses in Kenya\n✓ 10+ years of implementation experience\n\nLet's help your business grow!`,
+      message: `🏢 **About Optimum Prime Solutions**\n\n${d.company.about[0]}\n\n📈 **By the Numbers:**\n${d.company.stats.map((s) => `• ${s.label}: ${s.value}`).join('\n')}\n\n✓ Certified Tally Gold Partner\n✓ KRA Compliance Experts\n✓ Trusted by 500+ businesses in Kenya\n✓ 10+ years of implementation experience\n\nLet's help your business grow!\n\n**Is there anything specific about our company or experience you'd like to know more about?** 💡`,
     },
     {
       pattern: /thank|bye|asante|goodbye|see you|ciao|tata|cheers|exit/,
-      message: `You're welcome! 😊 Feel free to reach out anytime.\n\n📞 ${d.contact.phones[0]}\n💬 wa.me/${d.contact.whatsapp}\n\nHave a great day! 🚀`,
+      message: `You're welcome! 😊 Feel free to reach out anytime.\n\n📞 ${d.contact.phones[0]}\n💬 wa.me/${d.contact.whatsapp}\n\nHave a great day! 🚀\n\n**Is there anything else I can assist you with today, or would you like to explore another topic?** ✨`,
     },
   ];
 
@@ -139,7 +139,7 @@ function getBotResponse(q: string, d: SiteData): Msg {
     return {
       id: Date.now().toString(),
       role: 'bot',
-      text: `📋 **${faq.q}**\n\n${faq.a}`,
+      text: `📋 **${faq.q}**\n\n${faq.a}\n\n**Did this answer your question, or would you like more details?**`,
       time,
     };
   }
@@ -212,7 +212,7 @@ export default function Chatbot() {
     {
       id: '0',
       role: 'bot',
-      text: `👋 Hello there! I'm **Aurora**, your AI assistant from Optimum Prime Solutions. I'm designed to help you navigate our services and find the best solutions for your business.\n\nTo get started, tell me a bit about what you're looking for. For example, you could ask about:\n\n✨ **KRA & eTIMS compliance**\n💼 **Payroll management**\n📊 **Inventory control**\n🚀 **System migration**\n\nOr, if you prefer, I can help you **book a demo** or **connect with a human expert**! What's on your mind today? 😊`,
+      text: `👋 Hello there! I'm **Aurora**, your AI assistant from Optimum Prime Solutions. I'm designed to help you navigate our services and find the best solutions for your business.\n\nTo get started, tell me a bit about what you're looking for. For example, you could ask about:\n\n✨ **KRA & eTIMS compliance**\n💼 **Payroll management**\n📊 **Inventory control**\n🚀 **System migration**\n\nOr, if you prefer, I can help you **book a demo** or **connect with a human expert**! What's on your mind today? 😊\n\nTo help me understand your needs better, could you tell me what industry your business operates in?`,
       time: getTime(),
     },
   ]);
