@@ -1,4 +1,3 @@
-import { useState, useRef, useEffect, useCallback } from 'react';
 import { X, Send, Bot, User, Minimize2, Sparkles, RotateCcw } from 'lucide-react';
 import WhatsAppIcon from './WhatsAppIcon';
 import WhatsAppButton from './WhatsAppButton';
@@ -100,99 +99,36 @@ function getBotResponse(q: string, d: SiteData): Msg {
       message: `📊 **Advanced Reporting & Analytics**\n\nTurn data into decisions:\n✓ Real-time dashboards\n✓ Financial reports\n✓ Budget vs. actual\n✓ Cash flow forecast\n✓ KPI tracking\n✓ Variance analysis\n✓ Custom reports\n✓ Data export (Excel/PDF)\n\n🎯 **Key Reports:**\n• P&L statements\n• Balance sheets\n• Cash flow analysis\n• Profitability by product\n• Customer/supplier analysis\n• Tax reports\n\nMake data-driven decisions daily!`,
     },
     {
-      pattern: /support|help|issue|problem|error|troubleshoot|bug|urgent|sla|response|maintenance|update/,
-      message: `🛠️ **24/7 Support & Maintenance**\n\nWe're always here for you:\n✓ Phone support (24 hours)\n✓ Email ticketing system\n✓ Remote troubleshooting\n✓ On-site visits available\n✓ Software updates\n✓ Preventive maintenance\n✓ Performance optimization\n\n⚡ **Service Levels:**\n• Critical: <1 hour response\n• High: <4 hours response\n• Medium: <24 hours response\n• Low: <48 hours response\n\n📞 ${d.contact.phones[0]}`,
-    },
-    {
-      pattern: /edition|silver|gold|plus|enterprise|compare|difference|choose|which|best/,
-      message: `📦 **Tally Prime Editions**\n\n**Silver** - Small businesses\n✓ Single-user\n✓ Basic inventory\n✓ Multi-currency\n• Best for: Startups, sole traders\n\n**Gold** - Growing businesses\n✓ Multi-user (up to 5)\n✓ Advanced inventory\n✓ Remote access\n• Best for: SMEs, branches\n\n**Plus** - Mid-market\n✓ Multi-location\n✓ Manufacturing\n✓ Advanced reporting\n• Best for: 50-200 employees\n\n**Enterprise** - Large organizations\n✓ Unlimited users\n✓ Full customization\n✓ API access\n• Best for: 200+ employees\n\nNeed help choosing?`,
-    },
-    {
-      pattern: /contact|reach|phone|call|email|location|address|office|visit|meeting|where/,
-      message: `📞 **Contact & Office Information**\n\n${d.contact.phones.map((p) => `📱 ${p}`).join('\n')}\n${d.contact.emails.map((e) => `📧 ${e}`).join('\n')}\n📍 ${d.contact.location}\n\n🕐 **Working Hours:**\n${d.contact.workingHours.map((h) => `• ${h}`).join('\n')}\n\nSchedule a meeting or get a quote!\n\n**Would you prefer a call, email, or an in-person meeting to discuss your needs further?** 🗓️`,
-    },
-    {
-      pattern: /about|company|who|mission|vision|history|team|background|credential|expert|partner/,
-      message: `🏢 **About Optimum Prime Solutions**\n\n${d.company.about[0]}\n\n📈 **By the Numbers:**\n${d.company.stats.map((s) => `• ${s.label}: ${s.value}`).join('\n')}\n\n✓ Certified Tally Gold Partner\n✓ KRA Compliance Experts\n✓ Trusted by 500+ businesses in Kenya\n✓ 10+ years of implementation experience\n\nLet's help your business grow!\n\n**Is there anything specific about our company or experience you'd like to know more about?** 💡`,
-    },
-    {
-      pattern: /thank|bye|asante|goodbye|see you|ciao|tata|cheers|exit/,
-      message: `You're welcome! 😊 Feel free to reach out anytime.\n\n📞 ${d.contact.phones[0]}\n💬 wa.me/${d.contact.whatsapp}\n\nHave a great day! 🚀\n\n**Is there anything else I can assist you with today, or would you like to explore another topic?** ✨`,
+      pattern: /demo|book|schedule|meeting|call|consultation|appointment/,
+      message: `📅 **Book a Demo**\n\nLet's show you how Tally Prime can transform your business!\n\n✓ 30-minute personalized demo\n✓ Customized to your industry\n✓ Live Q&A session\n✓ No obligation\n\n**Ready to see it in action?** 🚀`,
+      action: 'demo',
     },
   ];
 
-  for (const { pattern, message, action, badge } of responses) {
-    if (pattern.test(lc)) {
-      return { id: Date.now().toString(), role: 'bot', text: message, time, action: action as any, badge };
+  for (const r of responses) {
+    if (r.pattern.test(lc)) {
+      return {
+        id: Date.now().toString(),
+        role: 'bot',
+        text: r.message,
+        time,
+        action: r.action,
+        badge: r.badge,
+      };
     }
-  }
-
-  const faq = d.faqs.find((f) => {
-    const words = lc.split(/\s+/).filter((x) => x.length > 3);
-    return (
-      words.filter((x) => f.q.toLowerCase().includes(x) || f.a.toLowerCase().includes(x))
-        .length >= 2
-    );
-  });
-
-  if (faq) {
-    return {
-      id: Date.now().toString(),
-      role: 'bot',
-      text: `📋 **${faq.q}**\n\n${faq.a}\n\n**Did this answer your question, or would you like more details?**`,
-      time,
-    };
   }
 
   return {
     id: Date.now().toString(),
     role: 'bot',
-    text: `Great question! 🤔 I'm still learning, but I've got you covered!\n\n📞 **Quick contact:**\n${d.contact.phones[0]}\n\n💬 **Or WhatsApp me** – I can escalate to our team instantly:\n📱 wa.me/${d.contact.whatsapp}\n\n**In the meantime, try asking about:**\n✓ KRA compliance\n✓ Payroll setup  \n✓ Banking integrations\n✓ Collections management\n✓ Inventory control\n✓ System migration\n✓ Pricing & editions\n\n**Need a demo?** Just say "demo" 🎯`,
+    text: `I appreciate your question! 🤔\n\nWhile I'm still learning, here's what I can help with:\n\n✓ **KRA & eTIMS compliance** - Stay 100% tax compliant\n✓ **Payroll automation** - Manage salaries, PAYE, NHIF, NSSF\n✓ **Inventory control** - Real-time stock tracking across locations\n✓ **Banking integrations** - Reconcile accounts automatically\n✓ **Collections** - Speed up customer payments\n✓ **Manufacturing** - Bill of Materials, production tracking\n✓ **System migration** - Move from legacy systems safely\n\n**Can you tell me more about your specific challenge?** Or feel free to **book a demo** with our team! 😊`,
     time,
   };
 }
 
-function FormatMessage({ text }: { text: string }) {
-  const formatInline = (content: string) => {
-    const parts = content.split(/(\*\*[^*]+\*\*)/g);
-    return parts.map((part, j) =>
-      part.startsWith('**') && part.endsWith('**') ? (
-        <strong key={j} className="font-semibold text-slate-900 dark:text-white">
-          {part.slice(2, -2)}
-        </strong>
-      ) : (
-        <span key={j}>{part}</span>
-      )
-    );
-  };
-
-  return (
-    <>
-      {text.split('\n').map((line, i) => {
-        const trimmed = line.trim();
-        if (!trimmed) return <br key={i} />;
-
-        const bulletMatch = trimmed.match(/^([•✓✦])\s*(.*)$/);
-        if (bulletMatch) {
-          const [, symbol, rest] = bulletMatch;
-          return (
-            <div key={i} className="ml-1 flex gap-1.5">
-              <span className="text-sky-500">{symbol}</span>
-              <span>{formatInline(rest)}</span>
-            </div>
-          );
-        }
-
-        return <div key={i}>{formatInline(line)}</div>;
-      })}
-    </>
-  );
-}
-
 export default function Chatbot() {
   const { data } = useSite();
-  const [showWA, setShowWA] = useState(false);
-  const defaultQuickLinks = [
+  const quickLinks = [
     'Request a demo',
     'Pricing & editions',
     'KRA compliance',
@@ -208,6 +144,7 @@ export default function Chatbot() {
   const [typing, setTyping] = useState(false);
   const [showTypingIndicator, setShowTypingIndicator] = useState(false);
   const [demoOpen, setDemoOpen] = useState(false);
+  const [conversationContext, setConversationContext] = useState<Record<string, string>>({});
   const [msgs, setMsgs] = useState<Msg[]>([
     {
       id: '0',
@@ -226,6 +163,23 @@ export default function Chatbot() {
     scroll();
   }, [msgs, typing, scroll]);
 
+  // Extract context from user messages
+  const extractContext = (txt: string) => {
+    const updates: Record<string, string> = {};
+    const locationMatch = txt.match(/(\d+)\s*(location|branch|warehouse)/i);
+    if (locationMatch) updates.locations = locationMatch[1];
+
+    const employeeMatch = txt.match(/(\d+)\s*(employee|staff|person|people)/i);
+    if (employeeMatch) updates.employees = employeeMatch[1];
+
+    if (/stock.?out|overstock|inventory|warehouse/i.test(txt)) updates.inventoryChallenge = 'stock management';
+    if (/manufacturing|production|factory/i.test(txt)) updates.industry = 'manufacturing';
+    if (/retail|shop|store/i.test(txt)) updates.industry = 'retail';
+    if (/service|consulting|agency/i.test(txt)) updates.industry = 'service';
+
+    return updates;
+  };
+
   const send = (txt: string) => {
     if (!txt.trim()) return;
 
@@ -241,17 +195,21 @@ export default function Chatbot() {
     const kraQueryRegex = /\b(kra|etims|e-filing|tax|vat|compliance)\b/i;
     const replyBadge = kraQueryRegex.test(trimmedText) ? 'kra' : undefined;
 
+    // Update conversation context
+    const newContext = extractContext(trimmedText);
+    setConversationContext((p) => ({ ...p, ...newContext }));
+
     setMsgs((p) => [...p, userMsg]);
     setInput('');
 
     if (isGreeting) {
-        const botMsg = getBotResponse(trimmedText, data);
-        if (botMsg.action === 'demo') setDemoOpen(true);
-        setTimeout(() => {
-          setMsgs((p) => [...p, botMsg]);
-          setShowTypingIndicator(false);
-        }, 1500);
-        return;
+      const botMsg = getBotResponse(trimmedText, data);
+      if (botMsg.action === 'demo') setDemoOpen(true);
+      setTimeout(() => {
+        setMsgs((p) => [...p, botMsg]);
+        setShowTypingIndicator(false);
+      }, 600);
+      return;
     }
 
     setTyping(true);
@@ -273,14 +231,14 @@ export default function Chatbot() {
         setTimeout(() => {
           setMsgs((p) => [...p, botMsg]);
           setShowTypingIndicator(false);
-        }, 1500);
+        }, 600);
       } catch (err) {
         const botMsg = getBotResponse(trimmedText, data);
         if (botMsg.action === "demo") setDemoOpen(true);
         setTimeout(() => {
           setMsgs((p) => [...p, { ...botMsg, badge: botMsg.badge || replyBadge }]);
           setShowTypingIndicator(false);
-        }, 1500);
+        }, 600);
       } finally {
         setTyping(false);
         setShowTypingIndicator(false);
@@ -298,6 +256,7 @@ export default function Chatbot() {
           time: getTime(),
         },
       ]);
+      setConversationContext({});
     }
   };
 
@@ -321,6 +280,7 @@ export default function Chatbot() {
               <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-white/30 opacity-60" />
               <span className="relative h-4 w-4 rounded-full bg-white/60" />
             </span>
+            <span className="absolute -bottom-2 -left-2 bg-white text-[#25D366] text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center">✓</span>
           </motion.button>
         )}
       </AnimatePresence>
@@ -340,304 +300,141 @@ export default function Chatbot() {
             {/* Header */}
             <div className="flex items-center justify-between bg-gradient-to-r from-slate-900 to-slate-700 px-4 py-3 shrink-0">
               <div className="flex items-center gap-2.5">
-                  <div className="relative h-8 w-8 rounded-full bg-[#25D366] flex items-center justify-center">
-                    <motion.div animate={{ rotate: 360 }} transition={{ duration: 3, repeat: Infinity }}>
-                      <WhatsAppIcon className="h-4 w-4 text-white" />
-                    </motion.div>
-                    <span className="absolute -bottom-0.5 -right-0.5 h-2.5 w-2.5 rounded-full border-2 border-white bg-white/80" />
-                  </div>
-                  <WhatsAppButton message="I need help with..." />
-                    {/* WhatsApp quick link (opens CTA modal) */}
-
-                {!min && (
-                  <div>
-                    <p className="text-sm font-semibold text-white">Optimum Assistant</p>
-                    <p className="text-[10px] text-green-300">● Online & Ready</p>
-                  </div>
-                )}
-                {min && <p className="text-sm font-semibold text-white">Optimum Assistant</p>}
+                <div className="relative h-8 w-8 rounded-full bg-[#25D366] flex items-center justify-center">
+                  <motion.div animate={{ rotate: 360 }} transition={{ duration: 3, repeat: Infinity }}>
+                    <WhatsAppIcon className="h-4 w-4 text-white" />
+                  </motion.div>
+                  <span className="absolute -bottom-0.5 -right-0.5 h-2.5 w-2.5 rounded-full border-2 border-white bg-green-400" />
+                </div>
+                <div className="flex flex-col">
+                  <span className="text-white font-semibold text-sm">Optimum Assistant</span>
+                  <span className="text-green-300 text-xs">● Online & Ready</span>
+                </div>
               </div>
-              <div className="flex gap-1">
-                <motion.button
-                  whileHover={{ scale: 1.1 }}
-                  whileTap={{ scale: 0.95 }}
-                  onClick={handleClear}
-                  className="p-1.5 text-white/50 hover:text-white hover:bg-white/10 rounded-lg transition"
-                  title="Clear chat"
-                >
-                  <RotateCcw className="h-3.5 w-3.5" />
-                </motion.button>
-                <motion.button
-                  whileHover={{ scale: 1.1 }}
-                  whileTap={{ scale: 0.95 }}
+              <div className="flex items-center gap-2">
+                <button
                   onClick={() => setMin(!min)}
-                  className="p-1.5 text-white/50 hover:text-white hover:bg-white/10 rounded-lg transition"
+                  className="p-1.5 hover:bg-white/10 rounded-lg transition-colors"
+                  aria-label="Minimize"
                 >
-                  <Minimize2 className="h-3.5 w-3.5" />
-                </motion.button>
-                <motion.button
-                  whileHover={{ scale: 1.1 }}
-                  whileTap={{ scale: 0.95 }}
-                  onClick={() => {
-                    setOpen(false);
-                    setMin(false);
-                  }}
-                  className="p-1.5 text-white/50 hover:text-white hover:bg-white/10 rounded-lg transition"
+                  <Minimize2 className="h-4 w-4 text-white" />
+                </button>
+                <button
+                  onClick={handleClear}
+                  className="p-1.5 hover:bg-white/10 rounded-lg transition-colors"
+                  aria-label="Clear chat"
                 >
-                  <X className="h-3.5 w-3.5" />
-                </motion.button>
+                  <RotateCcw className="h-4 w-4 text-white" />
+                </button>
+                <button
+                  onClick={() => setOpen(false)}
+                  className="p-1.5 hover:bg-white/10 rounded-lg transition-colors"
+                  aria-label="Close chat"
+                >
+                  <X className="h-4 w-4 text-white" />
+                </button>
               </div>
             </div>
 
-            {!min && (
-              <>
-                {/* WhatsApp CTA modal */}
-                <AnimatePresence>
-                  {showWA && (
-                    <motion.div
-                      initial={{ opacity: 0, scale: 0.98 }}
-                      animate={{ opacity: 1, scale: 1 }}
-                      exit={{ opacity: 0, scale: 0.98 }}
-                      className="absolute left-4 top-16 z-50 w-[320px] sm:w-80"
+            {/* Messages */}
+            <div className="flex-1 overflow-y-auto p-4 space-y-4 bg-gradient-to-b from-slate-50 to-white dark:from-slate-900 dark:to-slate-950">
+              <AnimatePresence>
+                {msgs.map((msg) => (
+                  <motion.div
+                    key={msg.id}
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -10 }}
+                    className={`flex gap-2 ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}
+                  >
+                    {msg.role === 'bot' && (
+                      <div className="flex-shrink-0 w-6 h-6 rounded-full bg-[#25D366] flex items-center justify-center">
+                        <Bot className="h-3.5 w-3.5 text-white" />
+                      </div>
+                    )}
+                    <div
+                      className={`max-w-xs px-4 py-2.5 rounded-lg ${
+                        msg.role === 'user'
+                          ? 'bg-[#25D366] text-white rounded-br-none'
+                          : 'bg-slate-200 dark:bg-slate-800 text-slate-900 dark:text-white rounded-bl-none'
+                      }`}
                     >
-                      <div className="rounded-2xl overflow-hidden border bg-white shadow-lg ring-1 ring-slate-200">
-                        <div className="flex items-center justify-between px-4 py-3">
-                          <div className="flex items-center gap-3">
-                            <div className="h-9 w-9 rounded-full bg-[#25D366] flex items-center justify-center">
-                              <WhatsAppIcon className="h-5 w-5 text-white" />
-                            </div>
-                            <div>
-                              <p className="text-sm font-semibold">Message on WhatsApp</p>
-                              <p className="text-xs text-slate-500">Quick chat with our team</p>
-                            </div>
-                          </div>
-                          <button
-                            onClick={() => setShowWA(false)}
-                            className="text-slate-500 hover:text-slate-700 p-1 rounded"
-                            aria-label="Close WhatsApp CTA"
-                          >
-                            <X className="h-4 w-4" />
-                          </button>
-                        </div>
-                        <div className="px-4 pb-4">
-                          <p className="text-sm text-slate-600 mb-3">Open WhatsApp to start a direct chat with our support team.</p>
-                          <div className="flex flex-col gap-3">
-                            <div className="flex gap-2">
-                              <a
-                                href={`https://wa.me/${data.contact.whatsapp}?text=${encodeURIComponent('Hi, I would like to request a demo for Tally Prime.')}`}
-                                target="_blank"
-                                rel="noreferrer"
-                                className="inline-flex items-center gap-2 rounded-full bg-white/5 px-3 py-2 text-sm font-medium text-slate-900 border border-slate-100 hover:bg-white hover:scale-105 transition"
-                              >
-                                Request demo
-                              </a>
-                              <a
-                                href={`https://wa.me/${data.contact.whatsapp}?text=${encodeURIComponent('Hi, please share pricing and editions for Tally Prime.')}`}
-                                target="_blank"
-                                rel="noreferrer"
-                                className="inline-flex items-center gap-2 rounded-full bg-white/5 px-3 py-2 text-sm font-medium text-slate-900 border border-slate-100 hover:bg-white hover:scale-105 transition"
-                              >
-                                Pricing
-                              </a>
-                              <a
-                                href={`https://wa.me/${data.contact.whatsapp}?text=${encodeURIComponent('Hi, I need to talk to an expert about Tally Prime implementation.')}`}
-                                target="_blank"
-                                rel="noreferrer"
-                                className="inline-flex items-center gap-2 rounded-full bg-white/5 px-3 py-2 text-sm font-medium text-slate-900 border border-slate-100 hover:bg-white hover:scale-105 transition"
-                              >
-                                Talk to an expert
-                              </a>
-                            </div>
-                            <div className="flex gap-2">
-                              <a
-                                href={`https://wa.me/${data.contact.whatsapp}?text=${encodeURIComponent('Hi, I would like to request a demo for Tally Prime.')}`}
-                                target="_blank"
-                                rel="noreferrer"
-                                className="inline-flex items-center gap-2 rounded-full bg-[#25D366] px-4 py-2 text-sm font-semibold text-white shadow-sm hover:scale-105 transition"
-                              >
-                                <WhatsAppIcon className="h-4 w-4 text-white" />
-                                Open WhatsApp
-                              </a>
-                              <button
-                                onClick={() => setShowWA(false)}
-                                className="inline-flex items-center justify-center rounded-full border px-3 py-2 text-sm text-slate-700 hover:bg-slate-50 transition"
-                              >
-                                Close
-                              </button>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-                {/* Messages */}
-                <div className="flex-1 overflow-y-auto px-4 py-4 space-y-3 bg-slate-100 dark:bg-slate-950">
-                  {msgs.map((m) => (
-                    <motion.div
-                      key={m.id}
-                      initial={{ opacity: 0, y: 10 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      className={`flex gap-2 ${m.role === 'user' ? 'flex-row-reverse' : ''}`}
-                    >
-                      <div
-                        className={`h-7 w-7 rounded-full flex items-center justify-center shrink-0 ${
-                          m.role === 'bot'
-                            ? 'bg-slate-900'
-                            : 'bg-gradient-to-br from-sky-500 to-blue-600'
-                        }`}
-                      >
-                        {m.role === 'bot' ? (
-                          <Bot className="h-3.5 w-3.5 text-sky-300" />
-                        ) : (
-                          <User className="h-3.5 w-3.5 text-white" />
-                        )}
-                      </div>
-                      <div
-                        className={`max-w-[80%] rounded-2xl px-3.5 py-2.5 text-[13px] leading-relaxed ${
-                          m.role === 'bot'
-                            ? 'rounded-tl-sm bg-white dark:bg-slate-900 text-slate-700 dark:text-slate-200 shadow-sm border border-slate-100 dark:border-slate-700'
-                            : 'rounded-tr-sm bg-gradient-to-br from-sky-500 to-blue-600 text-white'
-                        }`}
-                      >
-                        {m.badge === 'kra' && (
-                          <div className="mb-2 inline-flex items-center gap-2 rounded-full border border-slate-200 bg-slate-50 px-2.5 py-1 text-[11px] font-semibold text-slate-700">
-                            <KraLogo className="h-4 w-4" />
-                            <span>KRA / eTIMS</span>
-                          </div>
-                        )} <FormatMessage text={m.text} />
-                        {m.role === 'bot' && m.id === '0' && (
-                          <div className="mt-3 flex flex-wrap gap-2">
-                            {defaultQuickLinks.slice(0, 6).map((s) => (
-                              <motion.button
-                                key={s}
-                                whileHover={{ scale: 1.03 }}
-                                whileTap={{ scale: 0.97 }}
-                                onClick={() => send(s)}
-                                className="rounded-full border border-sky-300/20 bg-sky-400/5 px-3 py-1 text-[12px] font-medium text-sky-600 hover:bg-sky-400/10 transition"
-                              >
-                                {s}
-                              </motion.button>
-                            ))}
-                          </div>
-                        )}
-                        {m.action === 'demo' && (
-                          <motion.button
-                            initial={{ opacity: 0, y: 5 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            whileHover={{ scale: 1.05 }}
-                            onClick={() => setDemoOpen(true)}
-                            className="mt-2 inline-block rounded-lg bg-blue-600 px-3 py-1.5 text-xs font-semibold text-white hover:bg-blue-700 transition"
-                          >
-                            <Sparkles className="h-3 w-3 inline mr-1" />
-                            Open Demo Form
-                          </motion.button>
-                        )}
-                        <p
-                          className={`mt-1 text-[9px] ${
-                            m.role === 'bot'
-                              ? 'text-slate-600'
-                              : 'text-white/40'
-                          }`}
-                        >
-                          {m.time}
-                        </p>
-                      </div>
-                    </motion.div>
-                  ))}
-                  {showTypingIndicator && (
-                    <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="flex gap-2">
-                      <div className="h-7 w-7 rounded-full bg-slate-900 flex items-center justify-center">
-                        <Bot className="h-3.5 w-3.5 text-sky-300" />
-                      </div>
-                      <div className="rounded-2xl rounded-tl-sm bg-white dark:bg-slate-900 px-4 py-3 shadow-sm border border-slate-100 dark:border-slate-700">
-                        <div className="flex gap-1">
-                          {[0, 1, 2].map((i) => (
-                            <motion.span
-                              key={i}
-                              animate={{ y: [0, -4, 0] }}
-                              transition={{ delay: i * 0.15, duration: 0.6, repeat: Infinity }}
-                              className="h-1.5 w-1.5 rounded-full bg-slate-400"
-                            />
-                          ))}
-                        </div>
-                      </div>
-                    </motion.div>
-                  )}
-                  <div ref={endRef} />
-                </div>
-
-                {/* Quick Questions */}
-                        {msgs.length <= 2 && (
-                  <div className="border-t border-slate-100 dark:border-slate-800 bg-white dark:bg-slate-950 px-3 py-2 shrink-0">
-                    <p className="mb-1.5 text-[9px] font-medium uppercase tracking-wider text-slate-600">
-                      Quick questions
-                    </p>
-                    <div className="flex flex-wrap gap-1">
-                              {[
-                                'KRA compliance',
-                                'Payroll setup',
-                                'Banking integrations',
-                                'Collections',
-                                'Inventory control',
-                                'System migration',
-                                'Audit readiness',
-                                'Request a demo',
-                              ].map((s) => (
-                        <motion.button
-                          key={s}
-                          whileHover={{ scale: 1.05 }}
-                          whileTap={{ scale: 0.95 }}
-                          onClick={() => send(s)}
-                          className="rounded-full border border-sky-300/20 bg-sky-400/5 px-2.5 py-1 text-[10px] font-medium text-sky-600 hover:bg-sky-400/10 transition"
-                        >
-                          {s}
-                        </motion.button>
-                      ))}
+                      <p className="text-sm whitespace-pre-wrap break-words">{msg.text}</p>
+                      <p className={`text-xs mt-1 ${msg.role === 'user' ? 'text-white/70' : 'text-slate-500 dark:text-slate-400'}`}>
+                        {msg.time}
+                      </p>
                     </div>
-                  </div>
-                )}
+                    {msg.role === 'user' && (
+                      <div className="flex-shrink-0 w-6 h-6 rounded-full bg-slate-300 dark:bg-slate-700 flex items-center justify-center">
+                        <User className="h-3.5 w-3.5 text-slate-600 dark:text-slate-300" />
+                      </div>
+                    )}
+                  </motion.div>
+                ))}
+              </AnimatePresence>
 
-                {/* Input */}
-                <form onSubmit={(e) => {e.preventDefault(); send(input);}} className="flex items-center gap-2 border-t border-slate-100 dark:border-slate-800 bg-white dark:bg-slate-950 px-3 py-2.5 shrink-0">
-                  <input
-                    value={input}
-                    onChange={(e) => setInput(e.target.value)}
-                    placeholder="Type a message..."
-                    className="flex-1 rounded-xl border border-slate-300 dark:border-slate-700 bg-slate-100 dark:bg-slate-900 px-3.5 py-2 text-sm outline-none focus:border-sky-400 focus:ring-2 focus:ring-sky-400/30 text-slate-950 dark:text-white placeholder-slate-500 dark:placeholder-slate-400 caret-sky-600"
-                  />
-                  <button
-                    type="button"
-                    onClick={() => setShowWA(true)}
-                    title="Contact on WhatsApp"
-                    aria-label="WhatsApp"
-                    className="h-9 w-9 rounded-xl bg-[#25D366] text-white flex items-center justify-center hover:scale-105 transition"
-                  >
-                    <WhatsAppIcon className="h-4 w-4" />
-                  </button>
-                  <motion.button
-                    type="submit"
-                    disabled={!input.trim()}
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
-                    className="h-9 w-9 rounded-xl bg-blue-600 text-white flex items-center justify-center hover:bg-blue-700 transition disabled:opacity-40 disabled:cursor-not-allowed"
-                  >
-                    <Send className="h-3.5 w-3.5" />
-                  </motion.button>
-                </form>
-              </>
+              {showTypingIndicator && (
+                <motion.div
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  className="flex gap-2 items-start"
+                >
+                  <div className="flex-shrink-0 w-6 h-6 rounded-full bg-[#25D366] flex items-center justify-center">
+                    <Bot className="h-3.5 w-3.5 text-white" />
+                  </div>
+                  <div className="bg-slate-200 dark:bg-slate-800 px-4 py-2.5 rounded-lg rounded-bl-none flex gap-1">
+                    <motion.div animate={{ y: [0, -4, 0] }} transition={{ duration: 0.6, repeat: Infinity }} className="w-2 h-2 bg-slate-500 rounded-full" />
+                    <motion.div animate={{ y: [0, -4, 0] }} transition={{ duration: 0.6, repeat: Infinity, delay: 0.1 }} className="w-2 h-2 bg-slate-500 rounded-full" />
+                    <motion.div animate={{ y: [0, -4, 0] }} transition={{ duration: 0.6, repeat: Infinity, delay: 0.2 }} className="w-2 h-2 bg-slate-500 rounded-full" />
+                  </div>
+                </motion.div>
+              )}
+
+              <div ref={endRef} />
+            </div>
+
+            {/* Quick Links */}
+            {msgs.length <= 2 && (
+              <div className="px-4 py-3 bg-slate-100 dark:bg-slate-800 border-t border-slate-200 dark:border-slate-700 overflow-x-auto">
+                <div className="flex gap-2 flex-nowrap">
+                  {quickLinks.map((link) => (
+                    <button
+                      key={link}
+                      onClick={() => send(link)}
+                      className="px-3 py-1.5 bg-white dark:bg-slate-700 text-slate-700 dark:text-white text-xs font-medium rounded-full hover:bg-slate-50 dark:hover:bg-slate-600 transition-colors whitespace-nowrap flex-shrink-0"
+                    >
+                      {link}
+                    </button>
+                  ))}
+                </div>
+              </div>
             )}
+
+            {/* Input */}
+            <div className="flex gap-2 p-3 border-t border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-950 shrink-0">
+              <input
+                type="text"
+                placeholder="Type a message..."
+                value={input}
+                onChange={(e) => setInput(e.target.value)}
+                onKeyPress={(e) => e.key === 'Enter' && send(input)}
+                className="flex-1 px-3 py-2 bg-slate-100 dark:bg-slate-800 text-slate-900 dark:text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-[#25D366] text-sm"
+              />
+              <button
+                onClick={() => send(input)}
+                disabled={!input.trim() || typing}
+                className="p-2 bg-[#25D366] text-white rounded-lg hover:bg-[#20ba58] disabled:opacity-50 transition-colors"
+                aria-label="Send message"
+              >
+                <Send className="h-4 w-4" />
+              </button>
+              <WhatsAppButton message={`Hi, I need help with: ${input || 'Optimum Prime Solutions'}`} />
+            </div>
           </motion.div>
         )}
       </AnimatePresence>
 
-      <DemoRequestModal
-        isOpen={demoOpen}
-        onClose={() => setDemoOpen(false)}
-        companyPhone={data.contact.phones[0]}
-        companyEmail={data.contact.emails[0]}
-        companyWhatsapp={data.contact.whatsapp}
-      />
+      {demoOpen && <DemoRequestModal open={demoOpen} onOpenChange={setDemoOpen} />}
     </>
   );
 }
