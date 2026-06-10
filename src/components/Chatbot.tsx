@@ -5,7 +5,7 @@ import { useSite } from '../context/SiteContext';
 import { motion, AnimatePresence } from 'framer-motion';
 import DemoRequestModal from './DemoRequestModal';
 import KraLogo from './KraLogo';
-import { getChatGPTReply } from '../utils/chatgpt';
+import { getChatGPTReply, type ChatMessage } from '../utils/chatgpt';
 import type { SiteData } from '../data/siteData';
 
 interface Msg {
@@ -215,9 +215,19 @@ export default function Chatbot() {
     setTyping(true);
     setShowTypingIndicator(true);
 
+    // Build conversation history for the AI from current message list
+    // We use a snapshot of msgs at call time (before the new user msg is rendered)
+    const aiHistory: ChatMessage[] = msgs.map((m) => ({
+      role: m.role === 'user' ? 'user' : 'assistant',
+      content: m.text,
+    }));
+
+    // Capture context snapshot at call time (setConversationContext is async)
+    const currentContext = { ...conversationContext, ...newContext };
+
     (async () => {
       try {
-        const reply = await getChatGPTReply(trimmedText, data);
+        const reply = await getChatGPTReply(trimmedText, data, aiHistory, currentContext);
         if (!reply?.trim()) throw new Error("EMPTY_REPLY");
 
         const botMsg: Msg = {
