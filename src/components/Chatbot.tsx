@@ -1,3 +1,4 @@
+import { useState, useRef, useEffect, useCallback } from 'react';
 import { X, Send, Bot, User, Minimize2, Sparkles, RotateCcw } from 'lucide-react';
 import WhatsAppIcon from './WhatsAppIcon';
 import WhatsAppButton from './WhatsAppButton';
