@@ -32,9 +32,11 @@ export default defineConfig({
     },
   },
   server: {
+    host: true, // Bind to 0.0.0.0 so GitHub Codespaces port forwarding works
     headers: securityHeaders,
   },
   preview: {
+    host: true, // Bind to 0.0.0.0 so GitHub Codespaces port forwarding works
     headers: securityHeaders,
   },
   build: {
