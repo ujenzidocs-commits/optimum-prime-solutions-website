@@ -16,6 +16,7 @@ import TestimonialsPage from './pages/TestimonialsPage';
 import BlogPage from './pages/BlogPage';
 import FAQPage from './pages/FAQPage';
 import ContactPage from './pages/ContactPage';
+import WebinarPage from './pages/WebinarPage';
 import { fbLogin, fbLogout, fbOnAuthStateChanged, fbAuth } from './firebase/config';
 import type { User } from 'firebase/auth';
 import { signInAnonymously } from 'firebase/auth';
@@ -34,6 +35,7 @@ function SiteRoutes() {
           <Route path="/blog" element={<BlogPage />} />
           <Route path="/faq" element={<FAQPage />} />
           <Route path="/contact" element={<ContactPage />} />
+          <Route path="/webinar" element={<WebinarPage />} />
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </main>

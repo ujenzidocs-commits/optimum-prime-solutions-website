@@ -1,149 +1,173 @@
 import { motion } from 'framer-motion';
-import { Calendar, Clock, Video, ExternalLink, ClipboardList } from 'lucide-react';
+import { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
+import { ExternalLink, Video, ClipboardList } from 'lucide-react';
 
-const WEBINAR = {
-  title: "Discover What's New in TallyPrime 7.1",
-  subtitle: "Exclusive Live Webinar",
-  date: "Tuesday, 7th July 2026",
-  time: "3:00 PM – 4:00 PM (EAT)",
-  venue: "Online via Google Meet",
-  rsvpLink: "https://forms.gle/gBfvbDyCoBkbQEhRA",
-  joinLink: "https://meet.google.com/bsj-hpbp-avz",
-  highlights: [
-    "Latest features in TallyPrime 7.1",
-    "Productivity improvements & smarter workflows",
-    "Compliance and reporting enhancements",
-    "Live demonstration of new capabilities",
-    "Interactive Q&A with our experts",
-  ],
-};
+const WEBINAR_DATE = new Date('2026-07-07T15:00:00+03:00'); // 3pm EAT
+
+function useCountdown(target: Date) {
+  const calc = () => {
+    const diff = target.getTime() - Date.now();
+    if (diff <= 0) return { days: 0, hours: 0, minutes: 0, seconds: 0, over: true };
+    return {
+      days: Math.floor(diff / 86400000),
+      hours: Math.floor((diff % 86400000) / 3600000),
+      minutes: Math.floor((diff % 3600000) / 60000),
+      seconds: Math.floor((diff % 60000) / 1000),
+      over: false,
+    };
+  };
+  const [time, setTime] = useState(calc);
+  useEffect(() => {
+    const id = setInterval(() => setTime(calc()), 1000);
+    return () => clearInterval(id);
+  }, []);
+  return time;
+}
+
+function Digit({ value, label }: { value: number; label: string }) {
+  return (
+    <div className="flex flex-col items-center">
+      <div className="bg-slate-800 border border-red-600/40 rounded-xl w-14 h-14 flex items-center justify-center shadow-lg">
+        <span className="text-xl font-bold text-white tabular-nums">
+          {String(value).padStart(2, '0')}
+        </span>
+      </div>
+      <span className="text-xs text-slate-400 mt-1 uppercase tracking-widest">{label}</span>
+    </div>
+  );
+}
 
 export default function WebinarBanner() {
+  const countdown = useCountdown(WEBINAR_DATE);
+
   return (
-    <section className="relative bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 py-16 px-4 overflow-hidden">
-      {/* Decorative background glow */}
-      <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute -top-24 -left-24 w-96 h-96 bg-red-600/20 rounded-full blur-3xl" />
-        <div className="absolute -bottom-24 -right-24 w-96 h-96 bg-red-600/10 rounded-full blur-3xl" />
+    <section className="relative bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 py-16 px-4 overflow-hidden">
+      {/* Background glow */}
+      <div className="absolute inset-0 pointer-events-none overflow-hidden">
+        <div className="absolute -top-32 left-1/3 w-[500px] h-[500px] bg-red-600/10 rounded-full blur-3xl" />
+        <div className="absolute bottom-0 right-0 w-[400px] h-[400px] bg-red-800/10 rounded-full blur-3xl" />
+        <div
+          className="absolute inset-0 opacity-[0.025]"
+          style={{
+            backgroundImage:
+              'linear-gradient(#fff 1px, transparent 1px), linear-gradient(90deg, #fff 1px, transparent 1px)',
+            backgroundSize: '60px 60px',
+          }}
+        />
       </div>
 
-      <div className="relative max-w-5xl mx-auto">
-        {/* Badge */}
+      <div className="relative max-w-6xl mx-auto">
+
+        {/* Live badge */}
         <motion.div
-          initial={{ opacity: 0, y: -10 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          initial={{ opacity: 0, scale: 0.9 }}
+          whileInView={{ opacity: 1, scale: 1 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
-          className="flex justify-center mb-4"
+          className="flex justify-center mb-6"
         >
-          <span className="inline-flex items-center gap-2 bg-red-600/20 border border-red-600/40 text-red-400 text-xs font-semibold uppercase tracking-widest px-4 py-1.5 rounded-full">
-            <span className="relative flex h-2 w-2">
+          <span className="inline-flex items-center gap-2 bg-red-600/20 border border-red-500/40 text-red-400 text-xs font-bold uppercase tracking-[0.2em] px-5 py-2 rounded-full">
+            <span className="relative flex h-2.5 w-2.5">
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75" />
-              <span className="relative inline-flex rounded-full h-2 w-2 bg-red-500" />
+              <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-red-500" />
             </span>
-            Live Webinar — 7 July 2026
+            Free Live Webinar &nbsp;·&nbsp; 7 July 2026
           </span>
         </motion.div>
 
-        {/* Heading */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.1 }}
-          className="text-center mb-10"
-        >
-          <p className="text-red-400 font-semibold text-sm uppercase tracking-widest mb-2">
-            {WEBINAR.subtitle}
-          </p>
-          <h2 className="text-3xl md:text-4xl font-bold text-white leading-tight">
-            🚀 {WEBINAR.title}
-          </h2>
-          <p className="mt-4 text-slate-300 max-w-2xl mx-auto text-base leading-relaxed">
-            Whether you're a business owner, accountant, finance professional, or current Tally user —
-            this session will show you how TallyPrime 7.1 helps you work faster, stay compliant, and
-            gain better control of your operations.
-          </p>
-        </motion.div>
+        {/* Two-column layout: poster + details */}
+        <div className="grid md:grid-cols-2 gap-10 items-center">
 
-        {/* Details + Highlights grid */}
-        <div className="grid md:grid-cols-2 gap-8 mb-10">
-          {/* Event details */}
+          {/* Poster image */}
           <motion.div
-            initial={{ opacity: 0, x: -20 }}
+            initial={{ opacity: 0, x: -30 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            className="bg-slate-800/60 border border-slate-700 rounded-2xl p-6 space-y-4"
+            transition={{ duration: 0.6 }}
+            className="flex justify-center"
           >
-            <h3 className="text-white font-semibold text-lg mb-2">Event Details</h3>
-            <div className="flex items-center gap-3 text-slate-300">
-              <Calendar className="w-5 h-5 text-red-400 flex-shrink-0" />
-              <span>{WEBINAR.date}</span>
-            </div>
-            <div className="flex items-center gap-3 text-slate-300">
-              <Clock className="w-5 h-5 text-red-400 flex-shrink-0" />
-              <span>{WEBINAR.time}</span>
-            </div>
-            <div className="flex items-center gap-3 text-slate-300">
-              <Video className="w-5 h-5 text-red-400 flex-shrink-0" />
-              <span>{WEBINAR.venue}</span>
-            </div>
+            <img
+              src="/webinar-poster.jpg"
+              alt="TallyPrime 7.1 Webinar Invite"
+              className="w-full max-w-sm rounded-2xl shadow-2xl shadow-black/50 border border-slate-700/40"
+            />
           </motion.div>
 
-          {/* What you'll learn */}
+          {/* Details + CTA */}
           <motion.div
-            initial={{ opacity: 0, x: 20 }}
+            initial={{ opacity: 0, x: 30 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.3 }}
-            className="bg-slate-800/60 border border-slate-700 rounded-2xl p-6"
+            transition={{ duration: 0.6, delay: 0.1 }}
+            className="space-y-6"
           >
-            <h3 className="text-white font-semibold text-lg mb-3">What You'll Learn</h3>
-            <ul className="space-y-2">
-              {WEBINAR.highlights.map((item, i) => (
-                <li key={i} className="flex items-start gap-2 text-slate-300 text-sm">
-                  <span className="mt-1 w-1.5 h-1.5 rounded-full bg-red-500 flex-shrink-0" />
-                  {item}
-                </li>
-              ))}
-            </ul>
+            <div>
+              <p className="text-red-400 text-sm font-semibold uppercase tracking-widest mb-2">
+                Optimum Prime Solutions · Exclusive Client Session
+              </p>
+              <h2 className="text-3xl md:text-4xl font-extrabold text-white leading-tight">
+                What's New in
+                <span className="block text-transparent bg-clip-text bg-gradient-to-r from-red-400 to-orange-400">
+                  TallyPrime 7.1
+                </span>
+              </h2>
+              <p className="mt-3 text-slate-300 text-base leading-relaxed">
+                A focused session for our valued clients — see the latest updates, live demo, and ask our team anything directly.
+              </p>
+            </div>
+
+            {/* Countdown */}
+            {!countdown.over ? (
+              <div>
+                <p className="text-slate-400 text-xs uppercase tracking-widest mb-3">Starting in</p>
+                <div className="flex gap-3">
+                  <Digit value={countdown.days} label="Days" />
+                  <div className="text-red-500 text-xl font-bold self-start mt-3">:</div>
+                  <Digit value={countdown.hours} label="Hrs" />
+                  <div className="text-red-500 text-xl font-bold self-start mt-3">:</div>
+                  <Digit value={countdown.minutes} label="Mins" />
+                  <div className="text-red-500 text-xl font-bold self-start mt-3">:</div>
+                  <Digit value={countdown.seconds} label="Secs" />
+                </div>
+              </div>
+            ) : (
+              <p className="text-red-400 font-semibold">🔴 The webinar is live now — join immediately!</p>
+            )}
+
+            {/* Event details */}
+            <div className="bg-slate-800/50 border border-slate-700/50 rounded-xl p-4 space-y-2 text-sm text-slate-300">
+              <div className="flex items-center gap-2">📅 <span><strong className="text-white">Tuesday, 7th July 2026</strong></span></div>
+              <div className="flex items-center gap-2">🕒 <span>3:00 PM – 4:00 PM (East Africa Time)</span></div>
+              <div className="flex items-center gap-2">📍 <span>Online via Google Meet</span></div>
+              <div className="flex items-center gap-2">💰 <span className="text-green-400 font-semibold">Free for all our clients</span></div>
+            </div>
+
+            {/* CTA buttons */}
+            <div className="flex flex-col sm:flex-row gap-3">
+              <Link
+                to="/webinar"
+                className="inline-flex items-center justify-center gap-2 bg-gradient-to-r from-red-600 to-red-500 hover:from-red-500 hover:to-orange-500 text-white font-bold px-7 py-3.5 rounded-xl transition-all duration-300 shadow-lg shadow-red-600/30 hover:shadow-red-500/50 hover:scale-105 text-sm"
+              >
+                <ClipboardList className="w-4 h-4" />
+                Register Now — It's Free
+              </Link>
+              <a
+                href="https://meet.google.com/bsj-hpbp-avz"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center justify-center gap-2 bg-slate-800 hover:bg-slate-700 border border-slate-600 hover:border-red-500/50 text-white font-semibold px-7 py-3.5 rounded-xl transition-all duration-300 hover:scale-105 text-sm"
+              >
+                <Video className="w-4 h-4" />
+                Join Directly
+                <ExternalLink className="w-3.5 h-3.5 opacity-60" />
+              </a>
+            </div>
+
+            <p className="text-slate-500 text-xs">
+              🔒 Register to receive the join link on WhatsApp automatically. You can also join directly without registering.
+            </p>
           </motion.div>
         </div>
-
-        {/* CTA Buttons */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.4 }}
-          className="flex flex-col sm:flex-row gap-4 justify-center items-center"
-        >
-          <a
-            href={WEBINAR.joinLink}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 bg-red-600 hover:bg-red-700 text-white font-semibold px-8 py-3 rounded-xl transition-all duration-200 shadow-lg shadow-red-600/30 hover:shadow-red-600/50"
-          >
-            <Video className="w-5 h-5" />
-            Join the Webinar
-            <ExternalLink className="w-4 h-4 opacity-70" />
-          </a>
-          <a
-            href={WEBINAR.rsvpLink}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 bg-slate-700 hover:bg-slate-600 border border-slate-600 text-white font-semibold px-8 py-3 rounded-xl transition-all duration-200"
-          >
-            <ClipboardList className="w-5 h-5" />
-            RSVP (Optional)
-            <ExternalLink className="w-4 h-4 opacity-70" />
-          </a>
-        </motion.div>
-
-        <p className="text-center text-slate-500 text-xs mt-4">
-          RSVP helps us estimate attendance and prepare for the session. You're welcome to join even without registering.
-        </p>
       </div>
     </section>
   );
