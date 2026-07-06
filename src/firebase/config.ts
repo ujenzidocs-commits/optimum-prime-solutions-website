@@ -5,7 +5,7 @@ import { getAuth, signInWithEmailAndPassword, signOut, onAuthStateChanged, type 
 const firebaseConfig = {
   apiKey: "AIzaSyA2T8PddUwaJHiaMNJ3XvwMDBFJ4CaohHE",
   authDomain: "optimum-website-1a60b.firebaseapp.com",
-  databaseURL: "https://optimum-website-1a60b-default-rtdb.firebaseio.com",
+  databaseURL: "https://optimum-website-1a60b-default-rtdb.europe-west1.firebasedatabase.app",
   projectId: "optimum-website-1a60b",
   storageBucket: "optimum-website-1a60b.appspot.com",
   messagingSenderId: "472845820373",
