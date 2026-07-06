@@ -151,7 +151,7 @@ export default function Footer() {
           </div>
         </div>
 
-        {/* TallyPrime 7.1 Coming Soon Banner */}
+        {/* TallyPrime 7.1 Now Available Banner */}
         <div className="rounded-4xl border border-amber-200 bg-gradient-to-r from-amber-50 via-yellow-50 to-orange-50 p-6 shadow-lg">
           <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
             <div className="flex items-start gap-4">
@@ -160,18 +160,18 @@ export default function Footer() {
               </div>
               <div>
                 <div className="flex items-center gap-2 mb-1">
-                  <span className="inline-block rounded-full bg-amber-400 px-3 py-0.5 text-xs font-bold uppercase tracking-wider text-white">Coming Soon</span>
-                  <span className="text-xs text-amber-700 font-semibold">Early Access Beta Available Now</span>
+                  <span className="inline-block rounded-full bg-green-500 px-3 py-0.5 text-xs font-bold uppercase tracking-wider text-white">Now Available</span>
+                  <span className="text-xs text-amber-700 font-semibold">Officially Launched</span>
                 </div>
                 <h4 className="text-base font-bold text-slate-900">TallyPrime 7.1 — The Next Generation of Business Management</h4>
                 <p className="mt-1 text-sm text-slate-600 max-w-2xl">
-                  Tally Solutions has released TallyPrime 7.1 Beta with powerful new features: <strong>8 professional invoice templates</strong>, <strong>connected banking with ICICI, Axis, SBI & Kotak</strong>, <strong>HSN/SAC online validation</strong>, <strong>Schedule III financial statements</strong>, <strong>IMS reconciliation upgrades</strong>, and <strong>auto-wrap text</strong> for cleaner reports. As your certified TallyPrime partner, we will upgrade and support your transition seamlessly.
+                  TallyPrime 7.1 is officially launched with powerful new features: <strong>AI-powered Docs by Ira</strong>, <strong>8 professional invoice templates</strong>, <strong>connected banking with ICICI, Axis, SBI & Kotak</strong>, <strong>HSN/SAC online validation</strong>, <strong>Schedule III financial statements</strong>, and <strong>IMS reconciliation upgrades</strong>. As your certified TallyPrime partner, we will upgrade and support your transition seamlessly.
                 </p>
               </div>
             </div>
             <div className="flex flex-col gap-2 shrink-0">
               <a
-                href="https://tallysolutions.com/download-tallyprime-7-1-beta/"
+                href="https://tallysolutions.com/ssa/download/"
                 target="_blank"
                 rel="noreferrer"
                 className="inline-flex items-center justify-center rounded-full bg-amber-400 hover:bg-amber-500 px-6 py-3 text-sm font-semibold text-white shadow-md transition"

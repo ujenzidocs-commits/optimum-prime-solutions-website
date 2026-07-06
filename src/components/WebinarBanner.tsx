@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { ExternalLink, Video, ClipboardList } from 'lucide-react';
 
-const WEBINAR_DATE = new Date('2026-07-07T15:00:00+03:00'); // 3pm EAT
+const WEBINAR_DATE = new Date('2026-07-08T15:00:00+03:00'); // 3pm EAT
 
 function useCountdown(target: Date) {
   const calc = () => {
@@ -71,7 +71,7 @@ export default function WebinarBanner() {
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75" />
               <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-red-500" />
             </span>
-            Free Live Webinar &nbsp;·&nbsp; 7 July 2026
+            Free Live Webinar &nbsp;·&nbsp; 8 July 2026
           </span>
         </motion.div>
 
@@ -136,7 +136,7 @@ export default function WebinarBanner() {
 
             {/* Event details */}
             <div className="bg-slate-800/50 border border-slate-700/50 rounded-xl p-4 space-y-2 text-sm text-slate-300">
-              <div className="flex items-center gap-2">📅 <span><strong className="text-white">Tuesday, 7th July 2026</strong></span></div>
+              <div className="flex items-center gap-2">📅 <span><strong className="text-white">Wednesday, 8th July 2026</strong></span></div>
               <div className="flex items-center gap-2">🕒 <span>3:00 PM – 4:00 PM (East Africa Time)</span></div>
               <div className="flex items-center gap-2">📍 <span>Online via Google Meet</span></div>
               <div className="flex items-center gap-2">💰 <span className="text-green-400 font-semibold">Free for all our clients</span></div>
