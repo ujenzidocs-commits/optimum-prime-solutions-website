@@ -55,6 +55,9 @@ export default function Contact() {
         status: 'New',
       };
 
+      // Trigger WhatsApp team alert + lead auto-reply (non-blocking)
+      notifyLeadViaWhatsApp(form).catch(() => {/* silent fail */});
+
       await fbSet(`leads/${lead.id}`, {
         name: form.name,
         email: form.email,
@@ -88,6 +91,26 @@ export default function Contact() {
       console.error('Form submission error:', error);
     } finally {
       setLoading(false);
+    }
+  };
+
+  const notifyLeadViaWhatsApp = async (formData: FormData) => {
+    try {
+      await fetch('https://optimum-prime-lead-notifier.onrender.com/new-lead', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name: formData.name,
+          phone: formData.phone,
+          email: formData.email,
+          company: formData.company,
+          interest: formData.businessType || 'TallyPrime / General Enquiry',
+          message: formData.message,
+          source: 'Contact Form',
+        }),
+      });
+    } catch {
+      // WhatsApp notification is best-effort — form submission still succeeds
     }
   };
 

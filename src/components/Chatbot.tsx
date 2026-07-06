@@ -368,6 +368,21 @@ export default function Chatbot() {
     else if (stage === 'ask_current_software') nextStage = 'recommend';
     else nextStage = 'free';
 
+    // When lead is fully qualified (reaching recommend stage), notify the team via WhatsApp
+    if (nextStage === 'recommend' && updatedLead.name) {
+      fetch('https://optimum-prime-lead-notifier.onrender.com/new-lead', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name: updatedLead.name,
+          company: updatedLead.business || 'Not provided',
+          interest: updatedLead.challenge || 'TallyPrime',
+          message: `Users: ${updatedLead.users || 'N/A'} | Current software: ${updatedLead.currentSoftware || 'N/A'} | Industry: ${updatedLead.industry || 'N/A'}`,
+          source: 'Chatbot',
+        }),
+      }).catch(() => {/* silent fail */});
+    }
+
     // Build conversation history for the AI (exclude the initial bot greeting to save tokens)
     const aiHistory: ChatMessage[] = msgs
       .slice(1) // skip the initial greeting message
