@@ -64,13 +64,14 @@ export default function WebinarPage() {
           source: 'Webinar Registration Page',
           send_confirmation: true,
           confirmation_message:
-            `Hi ${form.name}! 👋 Thank you for your interest in our webinar.\n\n` +
-            `*What's New in TallyPrime 7.1*\n` +
-            `📅 ${WEBINAR.date}\n` +
-            `🕒 ${WEBINAR.time}\n` +
-            `📍 Online via Google Meet\n\n` +
-            `🔗 *Join Link:*\n${WEBINAR.joinLink}\n\n` +
-            `We look forward to seeing you on the day!\n` +
+            `Hi ${form.name}! 🎉 Congratulations — you\'re all set for our webinar!\n\n` +
+            `We\'re delighted to have you join us for:\n` +
+            `*What\'s New in TallyPrime 7.1*\n\n` +
+            `📅 *Date:* ${WEBINAR.date}\n` +
+            `🕒 *Time:* ${WEBINAR.time}\n` +
+            `📍 *Venue:* Online via Google Meet\n\n` +
+            `🔗 *Your Join Link (save this):*\n${WEBINAR.joinLink}\n\n` +
+            `We\'ll send you a reminder on the day. See you there! 🙌\n` +
             `— Optimum Prime Solutions\n` +
             `🌐 www.optimumprimesolutions.co.ke`,
         }),
@@ -166,9 +167,9 @@ export default function WebinarPage() {
                 <div className="w-16 h-16 bg-green-50 rounded-full flex items-center justify-center">
                   <CheckCircle className="w-8 h-8 text-green-500" />
                 </div>
-                <h3 className="text-xl font-bold text-slate-900">Details Received!</h3>
+                <h3 className="text-xl font-bold text-slate-900">You're All Set! 🎉</h3>
                 <p className="text-slate-500 text-sm max-w-xs">
-                  We've sent the Google Meet join link to your WhatsApp. We look forward to seeing you on <strong>{WEBINAR.date}</strong>.
+                  Congratulations! We've sent the Google Meet join link to your WhatsApp. We look forward to seeing you on <strong>{WEBINAR.date}</strong>.
                 </p>
                 <a
                   href={WEBINAR.joinLink}

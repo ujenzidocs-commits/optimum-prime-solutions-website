@@ -6,15 +6,10 @@ import time
 # Twilio credentials — set these as environment variables:
 #   export TWILIO_ACCOUNT_SID="your_account_sid"
 #   export TWILIO_AUTH_TOKEN="your_auth_token"
-#   export TWILIO_FROM_NUMBER="whatsapp:+14155238886"
 # ---------------------------------------------------------------
 TWILIO_ACCOUNT_SID = os.environ.get('TWILIO_ACCOUNT_SID')
-TWILIO_AUTH_TOKEN = os.environ.get('TWILIO_AUTH_TOKEN')
-TWILIO_FROM_NUMBER = os.environ.get('TWILIO_FROM_NUMBER', 'whatsapp:+14155238886')
-
-if not TWILIO_ACCOUNT_SID or not TWILIO_AUTH_TOKEN:
-    print("❌ Missing Twilio credentials. Set TWILIO_ACCOUNT_SID and TWILIO_AUTH_TOKEN env vars.")
-    exit(1)
+TWILIO_AUTH_TOKEN  = os.environ.get('TWILIO_AUTH_TOKEN')
+TWILIO_FROM_NUMBER = 'whatsapp:+14155238886'
 
 client = Client(TWILIO_ACCOUNT_SID, TWILIO_AUTH_TOKEN)
 
@@ -35,23 +30,27 @@ def send_invite(name: str, phone: str) -> bool:
 
     message_body = (
         f"Hi {name}! 👋\n\n"
-        "It was great speaking with you earlier. As promised, here are the details for our upcoming session:\n\n"
+        "We'd like to personally invite you to our upcoming webinar — a session we've put together specifically for our valued clients.\n\n"
         "━━━━━━━━━━━━━━━━━━━━━━\n"
         "🎓 *What's New in TallyPrime 7.1*\n"
-        "A focused session for our valued clients\n"
         "━━━━━━━━━━━━━━━━━━━━━━\n\n"
-        "📅 *Date:* Tuesday, 7th July 2026\n"
+        "📅 *Date:* Wednesday, 8th July 2026\n"
         "🕒 *Time:* 3:00 PM – 4:00 PM (EAT)\n"
         "📍 *Venue:* Online via Google Meet\n"
-        "💰 *Cost:* Free for all our clients\n\n"
-        "We'll cover the latest features, live demo, and you'll have time to ask our team anything directly.\n\n"
+        "💰 *Cost:* Completely Free\n\n"
+        "🎯 *What you'll learn:*\n"
+        "✨ Latest features in TallyPrime 7.1\n"
+        "⚡ Productivity improvements & smarter workflows\n"
+        "📊 Compliance and reporting enhancements\n"
+        "🎥 Live demonstration of new capabilities\n"
+        "💬 Interactive Q&A with our experts\n\n"
         "━━━━━━━━━━━━━━━━━━━━━━\n"
-        "📝 *Register here (we'll send you the join link):*\n"
-        "https://optimumprimesolutions.co.ke/webinar\n\n"
-        "🔗 *Or join directly on the day:*\n"
+        "📝 *Register here to secure your spot:*\n"
+        "https://www.optimumprimesolutions.co.ke/webinar\n\n"
+        "🔗 *Direct join link (save this):*\n"
         "https://meet.google.com/bsj-hpbp-avz\n"
         "━━━━━━━━━━━━━━━━━━━━━━\n\n"
-        "Looking forward to seeing you there! 🙌\n"
+        "One of our team will follow up with you shortly. We hope to see you there! 🙌\n"
         "— *Optimum Prime Solutions*\n"
         "🌐 www.optimumprimesolutions.co.ke"
     )
