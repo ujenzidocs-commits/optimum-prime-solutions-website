@@ -9,7 +9,7 @@ const firebaseConfig = {
   projectId: "optimum-website-1a60b",
   storageBucket: "optimum-website-1a60b.appspot.com",
   messagingSenderId: "472845820373",
-  appId: "1:472845820373:web:a1b2c3d4e5f6g7h8i9j0"
+  appId: "1:784083256897:web:3edc73fa438f5faa2f68c0"
 };
 
 let database: ReturnType<typeof getDatabase> | null = null;
