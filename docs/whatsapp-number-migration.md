@@ -10,8 +10,8 @@
 | **Sandbox number (active now)** | `+14155238886` (Twilio shared sandbox) |
 | **Business number (pending)** | `+254727209720` |
 | **Meta verification status** | Registered with Meta — awaiting approval (showing "Offline") |
-| **Twilio Account SID** | `***TWILIO_ACCOUNT_SID***` |
-| **Twilio Auth Token** | `***TWILIO_AUTH_TOKEN***` |
+| **Twilio Account SID** | *(stored in Render.com environment variables — do not commit to repo)* |
+| **Twilio Auth Token** | *(stored in Render.com environment variables — do not commit to repo)* |
 
 > **Sandbox limitation:** Only numbers that have opted in (sent "join <keyword>" to +14155238886) can receive sandbox messages. Once the business number is verified and Online, ALL customers can receive messages without opting in.
 
