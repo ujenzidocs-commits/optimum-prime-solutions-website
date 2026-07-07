@@ -174,7 +174,7 @@ export default function AfricanLaptopShowcase({ tag, title, description, feature
             <div className={`absolute inset-0 bg-gradient-to-tr ${style.bgOverlay}`} />
             {renderThemeDecor(theme)}
             <div className="relative h-[28rem] max-w-[32rem] overflow-hidden rounded-[2rem] border border-white/10 shadow-2xl">
-              <div className="absolute inset-0 bg-cover bg-center" style={{ backgroundImage: `url('${imageUrls[theme]}')` }} />
+              <div className={`absolute inset-0 bg-cover ${theme === 'contact' ? 'bg-top' : 'bg-center'}`} style={{ backgroundImage: `url('${imageUrls[theme]}')` }} />
               <div className="absolute inset-0 bg-slate-950/30" />
               <div className="absolute inset-0 rounded-[2rem] ring-1 ring-white/10" />
               <div className="relative flex h-full items-end p-6">
