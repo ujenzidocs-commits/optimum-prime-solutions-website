@@ -13,7 +13,7 @@ export default function ProductsPage() {
           <div className="grid gap-10 lg:grid-cols-2 lg:items-center">
             <div className="max-w-3xl">
               <span className="inline-flex rounded-full bg-red-500/10 px-4 py-2 text-xs font-semibold uppercase tracking-[0.28em] text-red-700 ring-1 ring-red-200">
-                TallyPrime · Cloud · EOS®
+                TallyPrime · Cloud · EOS® · Biz Analyst
               </span>
               <h1 className="mt-6 text-4xl sm:text-5xl font-extrabold tracking-tight text-slate-950">
                 TallyPrime Editions, Cloud Hosting & EOS® Consulting Packages
@@ -38,7 +38,7 @@ export default function ProductsPage() {
             <div className="flex items-center justify-center rounded-[2rem] border border-slate-200 bg-white/80 p-8 shadow-2xl shadow-slate-200/40 ring-1 ring-slate-200/70 backdrop-blur-sm">
               <div className="text-center">
                 <p className="text-sm uppercase tracking-[0.28em] text-slate-500">Certified TallyPrime Partner</p>
-                <h2 className="mt-4 text-2xl font-semibold text-slate-950">Official TallyPrime reseller · Cloud · EOS®</h2>
+                <h2 className="mt-4 text-2xl font-semibold text-slate-950">Official TallyPrime reseller · Cloud · EOS® · Biz Analyst</h2>
                 <p className="mt-3 text-sm leading-6 text-slate-600">
                   We are Kenya's certified TallyPrime partner and licensed EOS® implementer. Contact us for the right package for your business.
                 </p>

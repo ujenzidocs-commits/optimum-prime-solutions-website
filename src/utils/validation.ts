@@ -64,9 +64,19 @@ export const validateForm = (data: FormData): FormValidation => {
     errors.push({ field: 'company', message: 'Company name must be at least 2 characters' });
   }
 
-  // Business type is optional
-  if (data.businessType.trim() && data.businessType.trim().length < 2) {
-    errors.push({ field: 'businessType', message: 'Please specify a valid business type' });
+  // Business type is required
+  if (!data.businessType.trim()) {
+    errors.push({ field: 'businessType', message: 'Please select your business type' });
+  }
+
+  // Demo date is required
+  if (!data.demoDate.trim()) {
+    errors.push({ field: 'demoDate', message: 'Please select a preferred demo date' });
+  }
+
+  // Demo time is required
+  if (!data.demoTime.trim()) {
+    errors.push({ field: 'demoTime', message: 'Please select a preferred time slot' });
   }
 
   // Message is optional but if provided, must be at least 10 chars

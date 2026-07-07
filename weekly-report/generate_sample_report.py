@@ -203,7 +203,7 @@ html = f"""<!DOCTYPE html>
     <!-- Footer -->
     <div style='padding-top:16px;border-top:1px solid #e2e8f0;font-size:12px;color:#94a3b8;'>
       <p style='margin:0;'>Auto-generated every Monday at 8:00am Nairobi time.</p>
-      <p style='margin:4px 0 0;'>Optimum Prime Solutions · Kenya's Certified TallyPrime Partner · Cloud Hosting · EOS® Consulting</p>
+      <p style='margin:4px 0 0;'>Optimum Prime Solutions · Kenya's Certified TallyPrime Partner · Cloud Hosting · EOS® · Biz Analyst</p>
     </div>
   </div>
 
