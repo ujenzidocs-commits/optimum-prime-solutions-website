@@ -3,13 +3,14 @@ import { getDatabase, ref, get, set, onValue } from 'firebase/database';
 import { getAuth, signInWithEmailAndPassword, signOut, onAuthStateChanged, type Auth, type User } from 'firebase/auth';
 
 const firebaseConfig = {
-  apiKey: "AIzaSyA2T8PddUwaJHiaMNJ3XvwMDBFJ4CaohHE",
-  authDomain: "optimum-website-1a60b.firebaseapp.com",
-  databaseURL: "https://optimum-website-1a60b-default-rtdb.europe-west1.firebasedatabase.app",
-  projectId: "optimum-website-1a60b",
-  storageBucket: "optimum-website-1a60b.appspot.com",
-  messagingSenderId: "472845820373",
-  appId: "1:784083256897:web:3edc73fa438f5faa2f68c0"
+  apiKey: "AIzaSyAY8O5LRWxcJgkYhNn1SstAylc-q959vv0",
+  authDomain: "optimum-prime-website.firebaseapp.com",
+  databaseURL: "https://optimum-prime-website-default-rtdb.europe-west1.firebasedatabase.app",
+  projectId: "optimum-prime-website",
+  storageBucket: "optimum-prime-website.firebasestorage.app",
+  messagingSenderId: "784083256897",
+  appId: "1:784083256897:web:3edc73fa438f5faa2f68c0",
+  measurementId: "G-H1Y0KTGKG6"
 };
 
 let database: ReturnType<typeof getDatabase> | null = null;
