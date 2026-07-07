@@ -63,7 +63,7 @@ export default function TallyPromoPopup() {
               '🤖 AI-powered Docs by Ira — automate data entry',
               '🧾 8 new professional invoice templates',
               '🏦 Connected banking with major Kenyan banks',
-              '📊 Schedule III financial statements built-in',
+              '📊 Scheduled auto backup — never lose your data',
               '✅ KRA eTIMS e-invoicing compliance',
               '💬 Interactive Q&A — join our free webinar',
             ].map((item) => (

@@ -454,33 +454,31 @@ What\'s New in TallyPrime 7.1?
 1. 8 Professional Invoice Print Templates
 Your invoices now look as professional as your business. TallyPrime 7.1 includes eight ready-to-use invoice templates that you can personalise with your logo, watermark, brand colours, header and footer images, and terms & conditions. Set your preferred template as the default for each voucher type.
 
-2. Connected Banking — Now with ICICI Bank
-TallyPrime 7.1 extends its connected banking ecosystem to include ICICI Bank, joining Axis Bank, State Bank of India, and Kotak Mahindra Bank. You can now initiate direct payments, view real-time account balances, and reconcile transactions — all without leaving TallyPrime.
+2. Scheduled Auto Backup
+Never lose your business data again. TallyPrime 7.1 lets you schedule automatic backups to a local drive — set it once and your data is protected around the clock without any manual intervention.
 
-3. HSN/SAC Online Validation
-Validate your HSN and SAC codes directly within TallyPrime using live data from the GST portal. This ensures your invoices and returns are always accurate and reduces the risk of compliance notices.
+3. Auto-Wrap Text
+Long vendor names, item descriptions, narrations, and notes now wrap automatically across masters, transactions, reports, and printouts. No more truncated text — everything is fully readable at a glance.
 
-4. Schedule III Financial Statements
-For companies with net worth below Rs 250 Crore, TallyPrime 7.1 introduces an Excel-based tool to generate Schedule III compliant financial statements — ready for auditors and stakeholders.
+4. Reuse Deleted Voucher Numbers
+If a voucher is deleted, you can now reuse that voucher number across any voucher type. This keeps your numbering sequence clean, continuous, and audit-ready — particularly useful for businesses that issue sequential invoice numbers as required by KRA.
 
-5. IMS Reconciliation Upgrades
-The Inward Supplies (IMS) module now lets you fetch supplier details using GSTIN directly from the GST portal, even if the party ledger is not yet created. A new Books View shows reconciled, mismatched, and unmatched vouchers at a glance.
+5. Flexible Discounts
+Apply discounts in transactions as a percentage, an amount, or both — giving your sales team more flexibility when processing customer orders and quotations.
 
-6. Auto-Wrap Text
-Long vendor names, descriptions, and notes now wrap automatically across reports and printouts — no more truncated text.
+6. KRA eTIMS Compliance
+TallyPrime continues to support Kenya Revenue Authority eTIMS e-invoicing requirements, ensuring your VAT invoices are generated and transmitted in the correct format. As your certified TallyPrime partner, we configure and maintain your eTIMS integration so you remain fully compliant.
 
-7. Flexible Discounts & Voucher Enhancements
-Apply discounts as a percentage, an amount, or both in purchase and sales transactions. Reuse deleted voucher numbers to maintain clean numbering sequences.
+7. Payroll Compliance — PAYE, NHIF, NSSF & Housing Levy
+TallyPrime handles all Kenyan statutory deductions automatically — including the latest Housing Levy rates — so your payroll is always accurate and ready for KRA filing.
 
-When Will TallyPrime 7.1 Be Fully Released?
+TallyPrime 7.1 Is Now Officially Released
 
-TallyPrime 7.1 is currently in Beta (early access). The full release is expected soon. As your certified TallyPrime partner, we will handle your upgrade seamlessly — including data migration, staff training, and post-upgrade support.
+TallyPrime 7.1 is now fully available. As your certified TallyPrime partner, we handle your upgrade seamlessly — including data migration, staff training, and post-upgrade support — with zero disruption to your business operations.
 
 How to Get TallyPrime 7.1
 
-You can download the Beta directly from the official Tally Solutions website at: https://tallysolutions.com/download-tallyprime-7-1-beta/
-
-Or contact us to book an upgrade consultation. We will assess your current setup, plan the upgrade, and ensure zero disruption to your business operations.
+Contact us to book an upgrade consultation. We will assess your current setup, plan the upgrade, and ensure everything runs smoothly from day one.
 
 Ready to upgrade? Get in touch with our team today.`},
   ],
