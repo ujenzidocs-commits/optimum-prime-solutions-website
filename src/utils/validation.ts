@@ -30,6 +30,7 @@ export interface FormData {
   email: string;
   businessType: string;
   demoDate: string;
+  demoTime: string;
   currentSoftware: string;
   message: string;
 }

@@ -8,6 +8,47 @@ import { validateForm, getFieldError, type FormData, type ValidationError } from
 import { fbSet } from '../firebase/config';
 import type { Lead } from '../data/siteData';
 
+const TIME_SLOTS = [
+  '8:00 AM – 9:00 AM',
+  '9:00 AM – 10:00 AM',
+  '10:00 AM – 11:00 AM',
+  '11:00 AM – 12:00 PM',
+  '12:00 PM – 1:00 PM',
+  '1:00 PM – 2:00 PM',
+  '2:00 PM – 3:00 PM',
+  '3:00 PM – 4:00 PM',
+  '4:00 PM – 5:00 PM',
+];
+
+/** Build a Google Calendar "Add to Calendar" link for a 1-hour demo slot. */
+function buildCalendarLink(name: string, company: string, date: string, timeSlot: string): string {
+  if (!date || !timeSlot) return '';
+  try {
+    // Parse start hour from slot like "10:00 AM – 11:00 AM"
+    const startStr = timeSlot.split('–')[0].trim(); // "10:00 AM"
+    const [timePart, meridiem] = startStr.split(' ');
+    let [hours, minutes] = timePart.split(':').map(Number);
+    if (meridiem === 'PM' && hours !== 12) hours += 12;
+    if (meridiem === 'AM' && hours === 12) hours = 0;
+
+    // Build date strings in YYYYMMDDTHHMMSS format (EAT = UTC+3)
+    const [year, month, day] = date.split('-').map(Number);
+    const startUTC = new Date(Date.UTC(year, month - 1, day, hours - 3, minutes, 0));
+    const endUTC   = new Date(startUTC.getTime() + 60 * 60 * 1000);
+
+    const fmt = (d: Date) => d.toISOString().replace(/[-:]/g, '').split('.')[0] + 'Z';
+    const title = encodeURIComponent(`TallyPrime Demo — ${company || name}`);
+    const details = encodeURIComponent(
+      `Free 1-hour TallyPrime demo with Optimum Prime Solutions.\nClient: ${name}${company ? ` | ${company}` : ''}`
+    );
+    const location = encodeURIComponent('Google Meet — link to be shared by Optimum Prime Solutions');
+
+    return `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${title}&dates=${fmt(startUTC)}/${fmt(endUTC)}&details=${details}&location=${location}`;
+  } catch {
+    return '';
+  }
+}
+
 export default function Contact() {
   const { data, update } = useSite();
   const c = data.contact;
@@ -23,6 +64,7 @@ export default function Contact() {
     email: '',
     businessType: '',
     demoDate: '',
+    demoTime: '',
     currentSoftware: '',
     message: '',
   });
@@ -65,6 +107,7 @@ export default function Contact() {
         company: form.company,
         businessType: form.businessType,
         demoDate: form.demoDate,
+        demoTime: form.demoTime,
         currentSoftware: form.currentSoftware,
         message: form.message,
         createdAt: lead.createdAt,
@@ -81,6 +124,7 @@ export default function Contact() {
         email: '',
         businessType: '',
         demoDate: '',
+        demoTime: '',
         currentSoftware: '',
         message: '',
       });
@@ -106,6 +150,8 @@ export default function Contact() {
           company: formData.company,
           interest: formData.businessType || 'TallyPrime / General Enquiry',
           message: formData.message,
+          demoDate: formData.demoDate || '',
+          demoTime: formData.demoTime || '',
           source: 'Contact Form',
         }),
       });
@@ -125,11 +171,12 @@ export default function Contact() {
           html: `
             <h2>Thank you for your demo request!</h2>
             <p>Hi ${formData.name},</p>
-            <p>We've received your request for a Tally Prime demo. Our team will contact you within 24 hours.</p>
+            <p>We've received your request for a TallyPrime demo. Our team will contact you within 24 hours.</p>
             <ul>
               <li>Company: ${formData.company || 'Not provided'}</li>
               <li>Phone: ${formData.phone}</li>
               <li>Preferred Date: ${formData.demoDate || 'Not specified'}</li>
+              <li>Preferred Time: ${formData.demoTime || 'Not specified'}</li>
             </ul>
             <p>Best regards,<br/>Optimum Prime Solutions Team</p>
           `,
@@ -222,6 +269,16 @@ export default function Contact() {
                   <CheckCircle className="mx-auto h-12 w-12 text-sky-500" />
                   <h4 className="mt-4 text-xl font-semibold text-slate-950">Request submitted</h4>
                   <p className="mt-2 text-sm text-slate-600">Our team will get back to you within 24 hours.</p>
+                  {form.demoDate && form.demoTime && (
+                    <a
+                      href={buildCalendarLink(form.name, form.company, form.demoDate, form.demoTime)}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="mt-4 inline-flex items-center gap-2 rounded-full bg-sky-600 px-5 py-2.5 text-sm font-semibold text-white hover:bg-sky-700 transition"
+                    >
+                      📅 Add to Google Calendar
+                    </a>
+                  )}
                 </div>
               ) : (
                 <form onSubmit={submit} className="mt-8 grid gap-4">
@@ -253,6 +310,21 @@ export default function Contact() {
                         </label>
                       );
                     })}
+
+                    {/* Preferred time — 1-hour slots dropdown */}
+                    <label className="block text-sm text-slate-200">
+                      <span className="block mb-2 font-semibold text-slate-100">Preferred time</span>
+                      <select
+                        value={form.demoTime}
+                        onChange={(e) => set('demoTime', e.target.value)}
+                        className="w-full rounded-3xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm text-slate-950 outline-none transition"
+                      >
+                        <option value="">Select a time slot</option>
+                        {TIME_SLOTS.map((slot) => (
+                          <option key={slot} value={slot}>{slot}</option>
+                        ))}
+                      </select>
+                    </label>
                   </div>
 
                   <label className="block text-sm text-slate-200">
