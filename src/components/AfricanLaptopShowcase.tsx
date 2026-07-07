@@ -128,8 +128,8 @@ export default function AfricanLaptopShowcase({ tag, title, description, feature
     testimonials: 'https://images.pexels.com/photos/3184357/pexels-photo-3184357.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=1600',
     // Blog: African professional writing/reading at a desk
     blog: 'https://images.pexels.com/photos/4050291/pexels-photo-4050291.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=1600',
-    // Contact: African customer support professional with headset
-    contact: 'https://images.pexels.com/photos/3760263/pexels-photo-3760263.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=1600',
+    // Contact: African businessman in navy suit at office desk with laptop
+    contact: '/african-contact-professional.jpg',
   };
 
   return (
