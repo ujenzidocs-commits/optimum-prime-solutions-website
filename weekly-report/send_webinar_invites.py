@@ -14,12 +14,13 @@ TWILIO_FROM_NUMBER = 'whatsapp:+14155238886'
 client = Client(TWILIO_ACCOUNT_SID, TWILIO_AUTH_TOKEN)
 
 # ---------------------------------------------------------------
-# Add your customer list here — Name + Phone (with country code)
+# Add your customer list here — include salutation (Mr./Ms./Dr.)
+# name, phone (with country code), and optionally company name.
 # ---------------------------------------------------------------
 CUSTOMERS = [
-    # {"name": "John", "phone": "+254712345678"},
-    # {"name": "Mary", "phone": "+254723456789"},
-    # {"name": "Peter", "phone": "+254734567890"},
+    # {"name": "Mr. Kamau", "phone": "+254712345678", "company": "Kamau Traders"},
+    # {"name": "Ms. Wanjiru", "phone": "+254723456789", "company": "Wanjiru Enterprises"},
+    # {"name": "Dr. Omondi", "phone": "+254734567890"},
 ]
 
 
@@ -28,7 +29,10 @@ def send_invite(name: str, phone: str, company: str = "") -> bool:
     if not phone.startswith('whatsapp:'):
         phone = f"whatsapp:{phone}"
 
-    company_line = f"At *{company}*, this session will show you how to streamline your operations, stay KRA-compliant, and get more done with less manual effort.\n\n" if company else ""
+    company_line = (
+        f"At *{company}*, this session will show you how to get more done with less manual effort "
+        f"and stay ahead with the latest TallyPrime capabilities.\n\n"
+    ) if company else ""
 
     message_body = (
         f"Hi {name}! 👋\n\n"
@@ -40,23 +44,18 @@ def send_invite(name: str, phone: str, company: str = "") -> bool:
         "📅 *Date:* Wednesday, 15th July 2026\n"
         "🕒 *Time:* 3:00 PM – 4:00 PM (EAT)\n"
         "📍 *Venue:* Online via Google Meet\n"
-        "💰 *Cost:* Completely Free\n\n"
-        "🌟 *Why attend — this webinar is 100% FREE:*\n"
-        "✅ Be the first to see TallyPrime 7.1's new features before everyone else\n"
-        "✅ Learn how to save hours of manual work with AI-powered automation\n"
-        "✅ Stay fully compliant with the latest KRA eTIMS requirements\n"
-        "✅ Get your questions answered live by our TallyPrime experts\n"
-        "✅ Exclusive session for our clients only — limited spots available\n\n"
-        "🎯 *What you'll cover:*\n"
-        "✨ Latest features & productivity improvements\n"
-        "📊 Compliance, reporting & eTIMS enhancements\n"
-        "🎥 Live demo of new capabilities\n"
-        "💬 Interactive Q&A with our team\n\n"
+        "💰 *Cost:* Free webinar\n\n"
+        "🌟 *What we'll cover:*\n"
+        "✅ *Auto Wrap Text* — long descriptions, narrations & names display fully without truncation\n"
+        "✅ *Professional Invoice Print Templates* — 8 ready-to-use, fully customisable templates with your logo & branding\n"
+        "✅ *Scheduled Auto Backup* — set it once and your company data backs up automatically\n"
+        "✅ *Reuse Deleted Voucher Numbers* — keep your numbering sequence clean and continuous\n"
+        "✅ Live Q&A with our TallyPrime experts\n\n"
         "━━━━━━━━━━━━━━━━━━━━━━\n"
-        "📝 *Reserve your free spot — takes less than a minute:*\n"
+        "📝 *Reserve your spot — takes less than a minute:*\n"
         "https://www.optimumprimesolutions.co.ke/webinar\n"
         "━━━━━━━━━━━━━━━━━━━━━━\n\n"
-        "Once registered, we'll send your personal join link straight to your WhatsApp. 🙌\n\n"
+        "Once registered, we'll send your personal Google Meet join link straight to your WhatsApp. 🙌\n\n"
         "One of our team will also follow up with you shortly.\n"
         "— *Optimum Prime Solutions*\n"
         "🌐 www.optimumprimesolutions.co.ke"
@@ -82,7 +81,7 @@ if __name__ == "__main__":
     if not CUSTOMERS:
         print("\n⚠️  Customer list is empty!")
         print("   Add entries to the CUSTOMERS list in this script:")
-        print('   {"name": "John", "phone": "+254712345678"}')
+        print('   {"name": "Mr. Kamau", "phone": "+254712345678", "company": "Kamau Traders"}')
         exit(1)
 
     print(f"   Sending to {len(CUSTOMERS)} customer(s)...\n")
