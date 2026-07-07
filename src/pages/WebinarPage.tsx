@@ -5,7 +5,7 @@ import { fbSet } from '../firebase/config';
 
 const WEBINAR = {
   title: "What's New in TallyPrime 7.1",
-  date: "Wednesday, 8th July 2026",
+  date: "Wednesday, 15th July 2026",
   time: "3:00 PM – 4:00 PM (EAT)",
   venue: "Online via Google Meet",
   joinLink: "https://meet.google.com/bsj-hpbp-avz",
