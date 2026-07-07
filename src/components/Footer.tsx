@@ -163,9 +163,9 @@ export default function Footer() {
                   <span className="inline-block rounded-full bg-green-500 px-3 py-0.5 text-xs font-bold uppercase tracking-wider text-white">Now Available</span>
                   <span className="text-xs text-amber-700 font-semibold">Officially Launched</span>
                 </div>
-                <h4 className="text-base font-bold text-slate-900">TallyPrime 7.1 — The Next Generation of Business Management</h4>
+                <h4 className="text-base font-bold text-slate-900">TallyPrime 7.1 — Built for Kenyan Businesses</h4>
                 <p className="mt-1 text-sm text-slate-600 max-w-2xl">
-                  TallyPrime 7.1 is officially launched with powerful new features: <strong>AI-powered Docs by Ira</strong>, <strong>8 professional invoice templates</strong>, <strong>connected banking with ICICI, Axis, SBI & Kotak</strong>, <strong>HSN/SAC online validation</strong>, <strong>Schedule III financial statements</strong>, and <strong>IMS reconciliation upgrades</strong>. As your certified TallyPrime partner, we will upgrade and support your transition seamlessly.
+                  TallyPrime 7.1 is officially launched with features that matter to Kenyan businesses: <strong>KRA eTIMS e-invoicing compliance</strong>, <strong>AI-powered Docs by Ira</strong> for automated data entry, <strong>8 professional invoice templates</strong>, <strong>PAYE, NHIF, NSSF &amp; Housing Levy payroll compliance</strong>, <strong>multi-currency support</strong> for import/export businesses, and <strong>real-time VAT reporting</strong> aligned with KRA requirements. As your certified TallyPrime partner, we handle your upgrade and ensure a seamless transition.
                 </p>
               </div>
             </div>
